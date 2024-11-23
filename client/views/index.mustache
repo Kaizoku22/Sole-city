@@ -1,0 +1,84 @@
+<html>
+<head> 
+    <title>
+        Sole-city
+    </title>
+    <link rel="stylesheet" href="/output.css">
+  <script src="https://unpkg.com/htmx.org@1.9.12/dist/htmx.js" integrity="sha384-qbtR4rS9RrUMECUWDWM2+YGgN3U4V4ZncZ0BvUcg9FGct0jqXz3PUdVpU1p0yrXS" crossorigin="anonymous"></script>
+<style>
+</style>
+
+</head>
+
+
+<body>
+
+<header class='h-20 ml-4 mb-4'>
+    <div class="flex items-center w-full p-2">
+        <div class="logo">
+            <h1 class="h1"> {{title}}</h1>
+        </div>
+
+        <div class='w-9/12'></div>
+
+        <div class="user-name">
+        <h4> Welcome {{user.user_display_name}} </h4>
+        </div>
+    </div>
+</header>
+
+<div class="page">
+    <div class="map-container w-max fixed h-5/6 flex items-center">
+
+        <div class="map w-[90vw] hidden bg-black h-full duration-1000"> 
+                map 
+        </div>
+        <button class="draw-map bg-primary h-10 w-7 border-4 border-primary rounded-full flex justify-center items-center">
+                >  
+        </button>
+    </div>
+
+    <div class="flex">
+        <div class="trailwall w-9/12 ml-4">
+            <button class='bg-primary h-12 w-20' hx-get="/getPosts" hx-target="#posts-list"> 
+            Get Posts
+            </button>
+            <div id ="posts-list"></div>
+        </div>
+
+
+        <div class="cities">
+            Select From following Cities:
+            <div class="selectCity text-primary ml-5">
+                {{#cities}} 
+                     <a href="/city/{{city_name}}" 
+                    style="text-decoration:none;color:inherit">
+                    {{city_name}}
+                    </a><br>
+                {{/cities}}
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+<script>
+function onClickMapDrawer(){
+    let button = document.getElementsByClassName("draw-map")[0];
+    let mapContainer = document.getElementsByClassName("map")[0];
+
+    if(mapContainer.classList.contains('hidden')){
+        mapContainer.style.display = 'block';
+        mapContainer.classList.remove('hidden');
+        button.innerHTML = '<';
+    } else {
+        mapContainer.style.display = 'none';
+        mapContainer.classList.add('hidden');
+        button.innerHTML = '>';
+    }
+}
+
+document.getElementsByClassName('draw-map')[0].addEventListener("click", onClickMapDrawer);
+</script>
+
+</html>

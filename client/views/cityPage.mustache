@@ -1,0 +1,39 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sole-City</title>
+    <script src="https://unpkg.com/htmx.org@1.9.12/dist/htmx.js" integrity="sha384-qbtR4rS9RrUMECUWDWM2+YGgN3U4V4ZncZ0BvUcg9FGct0jqXz3PUdVpU1p0yrXS" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="page-content">
+    <h1>{{city.city_name}}</h1>
+    <button 
+        hx-post="/user/joinedCities" 
+        hx-swap="none"
+        hx-vals='{
+                "city_id" : "{{city.city_id}}"
+                }'>
+            Join 
+    </button>       
+    <div>
+    <button 
+        hx-get="/city/{{city.city_name}}/trails" 
+        hx-swap="innerHTML"
+        hx-target=".create-trail">
+            Create Trail
+    </button>       
+    </div>
+    
+    <div class="create-trail">
+        
+    </div>
+
+    </div>
+</body>
+</html>
+
+

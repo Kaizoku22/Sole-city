@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sole-City</title>
+
+    <link
+      rel="stylesheet"
+      href="/output.css"
+    />
+    <script src="https://unpkg.com/htmx.org@1.9.12/dist/htmx.js" integrity="sha384-qbtR4rS9RrUMECUWDWM2+YGgN3U4V4ZncZ0BvUcg9FGct0jqXz3PUdVpU1p0yrXS" crossorigin="anonymous"></script>
+</head>
+<body class="h-screen w-screen bg-background  bg-contain bg-[url('/images/cityscapebgremoved.png')] overflow-x-hidden">
+<div class="form-container  w-[60vw] h-[75vh]  flex justify-center items-center  mt-28 m-auto">
+    <form action='/register' method="post" class=" w-[70%] h-full bg-slate-950 p-10 flex flex-col">
+        <label>Enter Your Email</label>
+        <input type="text", name="email" class="m-2 h-10 bg-slate-950 w-full rounded-lg border-2 border-primary ">
+        <label>Enter Your First Name</label>
+        <input type="text", name="first_name" class="m-2 h-10 bg-slate-950 w-full rounded-lg border-2 border-primary ">
+        <label>Enter Your Last Name</label>
+        <input type="text" , name="last_name" class="m-2 h-10 bg-slate-950 w-full rounded-lg border-2 border-primary ">
+        <label>Enter Your Display Name</label>
+        <input type="text", name="display_name" class="m-2 h-10 bg-slate-950 w-full rounded-lg border-2 border-primary ">
+        <label>Enter Your password</label>
+        <input type="text", name="password" class="m-2 h-10 bg-slate-950 w-full rounded-lg border-2 border-primary ">
+
+        <input type='submit'  class="bg-primary h-12 w-20 ml-auto mr-auto mt-5">
+
+            
+    </form>
+    <div class= "w-[30%] h-full bg-primary flex flex-col justify-center items-center ">
+
+        <div class="flex flex-col justify-center items-center">
+            <p>Already registered ???</p>
+            <a href="/login">Login</a>
+        </div>
+
+    </div>
+    
+</div>
+
+</body>
+</html>
+
+

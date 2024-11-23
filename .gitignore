@@ -1,0 +1,12 @@
+#file types
+.env
+
+#directories
+/server/node_modules
+
+#files
+tables-model.txt
+database-model.txt
+sole-city.sql
+colour_palette.webp
+

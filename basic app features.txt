@@ -1,0 +1,37 @@
+sole city 
+A reddit type app for community creation
+
+features:
+city map integration
+posts about city
+	  |
+	Types of posts
+		|__normal information posts
+		|__City events
+		|__transportation posts
+		|__City Resources posts
+		|__tourist spots posts
+		|__Alarm posts
+		|__Official Government posts
+		|__Reviews posts
+		|__News posts
+short video content about city
+chat functionality
+User Profile and customization
+Search bar functionality
+push notifications
+
+The posts have the ability to be reflected or pinned on the map of the city like an road block event or new shop opening posts these have time limits and will be removed from map
+
+some posts can be permanant markers on the map like tourists spots but need a vote in the community to be placed permanantly
+
+
+The concept of the application is to people to create communities of their own cities, share info and organise together for their own cities development
+
+Have to add some kind of safety checks on the app to not become like other social media shit posting app like quora or instagram
+
+
+
+The architecture for the app:
+
+Database : PostgreSQL data base using Supabase
