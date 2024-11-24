@@ -50,13 +50,21 @@ async function uploadMedia(postID,file){
       // get public url of the uploaded file
     const { data: image } = supabase.storage
      .from("trail_images").getPublicUrl(data.path);
-    console.log(data.path);
-
-      console.log('Uploaded Images Successfully');
-      
+    console.log(image.publicUrl);
+    return image.publicUrl;
   } 
 };
 
+async function uploadMultipleMedia(postID,files){
+    let urlArray = [] 
+    await files.forEach(async (file) =>{
+       let url = await uploadMedia(postID,file); 
+        urlArray.push(url);
+        console.log(urlArray);
+    });
+    console.log(urlArray);
+    return urlArray;
+}
 
 function fetchSignedUrl(path){
 const { data: image } = supabase.storage.from("trail_images").getPublicUrl(path);
@@ -70,5 +78,5 @@ return createHash('sha256').update(pass).digest('hex');
 }
 
 
-module.exports = { hash,query,uploadMedia,postsTable,usersTable,passTable,sessionTable,citiesTable,supabase,fetchSignedUrl,};
+module.exports = { hash,query,uploadMedia,postsTable,usersTable,passTable,sessionTable,citiesTable,supabase,fetchSignedUrl,uploadMultipleMedia,};
 

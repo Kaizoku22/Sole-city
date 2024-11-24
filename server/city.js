@@ -38,11 +38,21 @@ router.get('/:city_name/trails',async(req,res)=>{
 });
 
 
-router.post('/:city_name/trails',upload.single('trailImages'),async (req,res) =>{
-    console.log(req.file);
+router.post('/:city_name/trails',upload.array('trailImages',10),async (req,res) =>{
+    console.log(req.files);
    
-        db.uploadMedia('postID',req.file);
-       //req.files.forEach((file) => db.uploadMedia('postID',file));    
+ //      let url = await db.uploadMedia('postID',req.file);
+ //      res.render('showImage',{imgUrl: url});
+        let images = await db.uploadMultipleMedia('postID',req.files);
+        console.log(images);
+//        req.files.forEach(async (file) => {
+//           let url = await db.uploadMedia('postID',file);
+//           images.push(url);
+//       }); 
+//        await a ;
+      
+         
+        
 });
 
 module.exports = router;
