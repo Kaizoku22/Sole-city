@@ -55,7 +55,7 @@ async function uploadMedia(postID,file){
       return error;
   } else {
 //      console.log('return object from supabase : ',data);
- const updateMediaLinks = await db.query(`UPDATE ${db.postsTable} set trail_media =${images} WHERE post_id=${post_id}`);
+ 
       // get public url of the uploaded file
     const { data: image } = supabase.storage
      .from("trail-images").getPublicUrl(data.path);

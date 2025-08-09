@@ -9,9 +9,52 @@ const upload = multer({ storage: storage });
 router.get('/:city_name',async (req,res)=>{
     let fetchCityRow = await db.query(`SELECT * FROM ${db.citiesTable} WHERE city_name = '${req.params.city_name}'`);
     console.log(fetchCityRow.rows[0]);
-    res.render('cityPage',
+    let fetchedTrails;
+    try{
+
+        let fetchTrailsQuery = {
+            text:`SELECT * FROM ${db.postsTable} WHERE city_id=$1`,
+            values:[fetchCityRow.rows[0].city_id],
+            }
+        let fetchTrailsQueryResult = await db.query(fetchTrailsQuery);
+        fetchedTrails = fetchTrailsQueryResult.rows;
+//        console.log('LOGGING fetched Trails : ', fetchTrailsQueryResult.rows);
+        }catch(error){
+        console.log('ERROR fetching trails from database :',error);
+        }
+       
+        let trailObjectList = await Promise.all(
+            fetchedTrails.map(async (trail)=>{
+            let userName;
+            let completeTrailObject;
+            try{
+                let fetchUserName = await db.query(`SELECT user_display_name from ${db.usersTable} WHERE user_uid = $1`,[trail.user_uid]); 
+                userName= fetchUserName.rows[0].user_display_name;
+//              console.log(fetchUserName);
+                }catch(error){
+                    console.log('ERROR fetching userName in fetch trails :',error);
+                }
+            completeTrailObject=
+                {   
+                post_id:trail.post_id,
+                user_uid:trail.user_uid,
+                user_name:userName,
+                city_id:trail.city_id,
+                post_type:trail.post_type,
+                trail_title:trail.trail_title,
+                post_content:trail.post_content,
+                trail_media:trail.trail_media,
+                trail_tstamp:trail.trail_tstamp
+                
+                }
+            return completeTrailObject;
+            })
+        ); 
+//    console.log(trailObjectList);
+       res.render('cityPage',
     {
         city: fetchCityRow.rows[0],
+        trails: trailObjectList,
     });
 });
 
@@ -39,15 +82,15 @@ router.get('/:city_name/trails',async(req,res)=>{
 
 //create Trail : 
 router.post('/:city_name/trails',upload.array('trailImages',10),async (req,res) =>{
-//    console.log('post trail req body:',req.body);
+    console.log('post trail req body:',req.body);
 //    console.log(req.files);
     const user = await db.fetchUserData(`${req.cookies.session}`);
 //    console.log('user_id fetched from db:',user);
     const createTrailQuery = {
         text:`INSERT into ${db.postsTable}
-        (post_id,user_uid,city_id,post_type,post_content,trail_media,trail_tstamp)
-        values(uuid_generate_v4(),$1,$2,$3,$4,$5,CURRENT_TIMESTAMP) RETURNING post_id`,     
-        values:[user.user_uid,req.body.city_id,'text and media',req.body.content,[]],
+        (post_id,user_uid,city_id,post_type,trail_title,post_content,trail_media,trail_tstamp)
+        values(uuid_generate_v4(),$1,$2,$3,$4,$5,$6,CURRENT_TIMESTAMP) RETURNING post_id`,     
+        values:[user.user_uid,req.body.city_id,'text and media',req.body.postTitle,req.body.content,[]],
     };
     let post_id;
     try{

@@ -1,0 +1,19 @@
+<div class="post" data-post_id = {{post_id}}>
+    <div class="post-header">
+        <h5>{{trail_title}}</h5>
+        <h6>Author:{{user_name}}</h6>
+    </div>
+    <div class="post-content">
+        <p class="post-content">{{post_content}}</p>
+    </div>
+    <div class="post-media">
+        {{#trail_media.length}}
+            <div class="post-media">
+            {{#trail_media}}
+                <img src="{{.}}" alt="Trail Media" height="675px" width="1200px">
+            {{/trail_media}}
+
+            </div>
+        {{/trail_media.length}}
+    </div>
+</div>
