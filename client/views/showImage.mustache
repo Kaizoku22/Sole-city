@@ -5,9 +5,11 @@
 
 
     <body>
+
+Hello world
+   {{#images}}
+     <img src="{{.}}" alt="img from supabase"> 
+   {{/images}}
     img
-    {{#images}}
-        <img src="{{imgUrl}}">
-    {{/images}}
     </body>
 </html>

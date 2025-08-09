@@ -42,9 +42,11 @@ router.post('/:city_name/trails',upload.array('trailImages',10),async (req,res) 
     console.log(req.files);
    
  //      let url = await db.uploadMedia('postID',req.file);
- //      res.render('showImage',{imgUrl: url});
         let images = await db.uploadMultipleMedia('postID',req.files);
+        console.log('url array before rendering : ')
         console.log(images);
+        res.render('showImage',{images:images});
+
 //        req.files.forEach(async (file) => {
 //           let url = await db.uploadMedia('postID',file);
 //           images.push(url);

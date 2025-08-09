@@ -3,7 +3,7 @@ const app = require('express')();
 const mustacheExpress = require('mustache-express');
 const cookieParser = require('cookie-parser');
 const express =require('express');
-const PORT = 8080;
+const PORT = 3000;
 const db = require('./database.js');
 const path = require('path');
 

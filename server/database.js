@@ -37,8 +37,8 @@ function query(text,params,callback)
 async function uploadMedia(postID,file){
     console.log(postID);
     console.log(file);
-     const { data, error } = await supabase.storage
-                                        .from('trail_images')
+    const { data, error } = await supabase.storage
+                                        .from('trail-images')
                                         .upload(`${postID}/${file.originalname}`,
                                         file.buffer)
   if(error) {
@@ -49,25 +49,21 @@ async function uploadMedia(postID,file){
       console.log('return object from supabase : ',data);
       // get public url of the uploaded file
     const { data: image } = supabase.storage
-     .from("trail_images").getPublicUrl(data.path);
+     .from("trail-images").getPublicUrl(data.path);
     console.log(image.publicUrl);
     return image.publicUrl;
   } 
 };
 
 async function uploadMultipleMedia(postID,files){
-    let urlArray = [] 
-    await files.forEach(async (file) =>{
-       let url = await uploadMedia(postID,file); 
-        urlArray.push(url);
-        console.log(urlArray);
-    });
-    console.log(urlArray);
+    const uploadPromises = files.map(file => uploadMedia(postID,file));
+    const urlArray = await Promise.all(uploadPromises);
+    console.log('Completed url array in uploadMultipleMedia : ',urlArray);
     return urlArray;
 }
 
 function fetchSignedUrl(path){
-const { data: image } = supabase.storage.from("trail_images").getPublicUrl(path);
+const { data: image } = supabase.storage.from("tral-images").getPublicUrl(path);
       console.log('fetching publicUrl');
       return image.publicUrl;
 }
