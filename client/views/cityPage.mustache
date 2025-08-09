@@ -19,17 +19,19 @@
                 }'>
             Join 
     </button>       
-    <div>
-    <button 
-        hx-get="/city/{{city.city_name}}/trails" 
-        hx-swap="innerHTML"
-        hx-target=".create-trail">
-            Create Trail
-    </button>       
-    </div>
+ 
     
     <div class="create-trail">
-        
+                
+    <form method="POST" action="/city/{{city.city_name}}/trails" enctype="multipart/form-data" >
+    <input type ="hidden" name="city_id" value="{{city.city_id}}" 
+    <label>Title</label>
+    <input type="text" name="postTitle">
+    <label>Content</label>
+    <input type="text" name="content">
+    <input type="file" id="trail-images" name="trailImages" multiple>
+    <input type="submit">
+    </form>
     </div>
 
     </div>
