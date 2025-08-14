@@ -43,7 +43,7 @@ router.post('/',async (req,res) =>{
               let sessionRow = await db.query(`SELECT * FROM ${db.sessionTable} WHERE user_uid = $1`,[user_uid]);
               console.log(sessionRow.rows[0]);
               res.cookie('session',sessionRow.rows[0].session_id,{secure:true , httpOnly:true});
-            res.send('user logged in');
+            res.redirect('/');
           }
          
 

@@ -16,6 +16,7 @@ router.get('/:city_name',async (req,res)=>{
     let fetchTrailTypeQuery = await db.query(`SELECT * from ${db.trailType}`);
     let trailTypes = fetchTrailTypeQuery.rows;
     console.log(trailTypes);
+const placeholders = joinedCities.map((_, i) => `$${i + 1}`).join(',');
     let fetchCityRow = await db.query(`SELECT * FROM ${db.citiesTable} WHERE city_name = '${req.params.city_name}'`);
 //    console.log(fetchCityRow.rows[0]);
     let fetchedTrails;
@@ -62,10 +63,10 @@ router.get('/:city_name',async (req,res)=>{
 
 //creating alertsList to show on alertWidgets 
     alertWidgetsList = trailObjectList
-        .filter(trail => trail.post_type="Alert")
+        .filter(trail => trail.post_type=="Alert")
         .map(trail => alertService.createAlertWidgetObject(trail));
     
-    console.log('LOGGING alertWidgetList :',alertWidgetsList);
+//    console.log('LOGGING alertWidgetList :',alertWidgetsList);
 
     const isHtmx = req.get('HX-Request') === 'true';
     if (isHtmx) {
@@ -128,7 +129,7 @@ router.post('/:city_name/trails',upload.array('trailImages',10),async (req,res) 
     const createTrailResult = await db.query(createTrailQuery);
     post_id = createTrailResult.rows[0].post_id;
 //    console.log('LOGGING post_id returnded after createTrailResult',post_id);
-//    console.log('createTrail Result Object',createTrailResult);
+    console.log('createTrail Result Object',createTrailResult.rows[0]);
    
     }catch(error){
         console.log('ERROR in CreateTrailQuery : ',error);
