@@ -5,6 +5,7 @@
     </title>
     <link rel="stylesheet" href="/index.css">
     <link rel="stylesheet" href="/post.css">
+    <link rel="stylesheet" href="/header.css">
   <script src="https://unpkg.com/htmx.org@1.9.12/dist/htmx.js" integrity="sha384-qbtR4rS9RrUMECUWDWM2+YGgN3U4V4ZncZ0BvUcg9FGct0jqXz3PUdVpU1p0yrXS" crossorigin="anonymous"></script>
 <style>
 </style>
@@ -21,7 +22,9 @@
         </div>
         <button class="draw-map">&gt;</button>
     </div>
+    <div class ="left-sidebar">    
 
+    </div>
     <div class="trailwall">
         <h1>TRAIL WALL</h1>
         <div class="trails_section">
@@ -30,21 +33,28 @@
             {{/trails}}
         </div>
     </div>
-
-    <div class="cities">
-        Select From following Cities:
-        <div class="selectCity">
-            {{#cities}} 
-                <a href="/city/{{city_name}}"
-                   hx-get="/city/{{city_name}}"
-                   hx-target=".page"
-                   hx-swap="innerHTML"
-                   hx-push-url = true
-                >{{city_name}}</a><br>
-            {{/cities}}
+    <div class= "right-sidebar">
+        <div class="cities">
+            Select From following Cities:
+            <div class="selectCity">
+                {{#cities}} 
+                    <a href="/city/{{city_name}}"
+                    hx-get="/city/{{city_name}}"
+                    hx-target=".page"
+                    hx-swap="outerHTML"
+                    hx-push-url = true
+                    >{{city_name}}</a><br>
+                {{/cities}}
+            </div>
+        </div>
+        <div class="alerts-section">
+            Alerts   
+        </div>
+        <div class="resources-section">
+            Saved Resources
         </div>
     </div>
-</div>:
+</div>
 </body>
 <script>
 function onClickMapDrawer(){

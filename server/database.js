@@ -24,6 +24,7 @@ const usersTable ="app_users";
 const passTable  ="user_passwords";
 const sessionTable ="user_sessions";
 const citiesTable = "cities_data";
+const trailType = "post_type";
 
 function query(text,params,callback)
 {
@@ -33,10 +34,10 @@ function query(text,params,callback)
 
 async function fetchUserData(session_id){
     let sessionQuery = await pool.query(`SELECT * FROM ${sessionTable} WHERE session_id = '${session_id}'`);
-//    console.log(sessionQuery.rows[0]); 
+//    console.log('LOGGING session object fetched in fetchUserData :',sessionQuery.rows[0]); 
     let fetchedUserQuery = await pool.query(`SELECT * FROM ${usersTable} WHERE user_uid = '${sessionQuery.rows[0].user_uid}'`);
     let fetchedUser = fetchedUserQuery.rows[0];
-//    console.log('Fetched User result -',fetchedUser);
+//    console.log('LOGGING Fetched User result in  fetchUserData:',fetchedUser);
     return fetchedUser;
 }
 
@@ -95,5 +96,5 @@ return createHash('sha256').update(pass).digest('hex');
 }
 
 
-module.exports = { hash,query,uploadMedia,postsTable,usersTable,passTable,sessionTable,citiesTable,supabase,fetchSignedUrl,uploadMultipleMedia,fetchUserData};
+module.exports = { hash,query,uploadMedia,postsTable,usersTable,passTable,sessionTable,citiesTable,trailType,supabase,fetchSignedUrl,uploadMultipleMedia,fetchUserData};
 

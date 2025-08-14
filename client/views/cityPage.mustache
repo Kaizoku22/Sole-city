@@ -1,16 +1,5 @@
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sole-City</title>
-    <link rel="stylesheet" href="/post.css">
-    <script src="https://unpkg.com/htmx.org@1.9.12/dist/htmx.js" integrity="sha384-qbtR4rS9RrUMECUWDWM2+YGgN3U4V4ZncZ0BvUcg9FGct0jqXz3PUdVpU1p0yrXS" crossorigin="anonymous"></script>
-</head>
-<body>
-    <div class="page-content">
+<link rel="stylesheet" href="/cityPage.css">
+<div class="page-content">
     <h1>{{city.city_name}}</h1>
     <button 
         hx-post="/user/joinedCities" 
@@ -28,23 +17,32 @@
     <input type ="hidden" name="city_id" value="{{city.city_id}}" 
     <label>Title</label>
     <input type="text" name="postTitle">
+    <lable>Trail Type :</label>
+    <select name="trailType" id="trail-type-dropdown" placeholder="Select Type">
+        {{#trailTypes}}
+                <option value={{type}}>{{type}}</option>       
+        {{/trailTypes}}
+    </select>
     <label>Content</label>
     <input type="text" name="content">
     <input type="file" id="trail-images" name="trailImages" multiple>
     <input type="submit">
     </form>
     </div>
+    <div class="container">
+        <div class="trailwall">
+            <h1> TRAIL WALL</h1>
+            <div class="trails_section">
+                {{#trails}}
+                    {{>postTemplate}}
+                {{/trails}}
+            </div>
+        </div>
 
-    </div>
-    <div class="trailwall">
-        <h1> TRAIL WALL</h1>
-        <div class="trails_section">
-            {{#trails}}
-                {{>postTemplate}}
-            {{/trails}}
+        <div class = "Alerts">
+            {{#alerts}}
+                {{>alertWidget}}
+            {{/alerts}}
         </div>
     </div>
-</body>
-</html>
-
-
+</div>

@@ -1,0 +1,25 @@
+.page{
+display:flex;
+}
+
+.trailwall{
+    height:800px;
+    width:60%;
+    overflow:auto;
+}
+.left-sidebar{
+    width:20%
+}
+
+.right-sidebar{
+    width:20%;
+}
+.cities{
+   height:20%; 
+}
+.alerts-section{
+    height:40%;
+}
+.resources-section{
+    height:40%;
+}

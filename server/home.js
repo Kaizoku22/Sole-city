@@ -1,19 +1,8 @@
 const db = require('./database.js');
+const header = require('./header.js');
 const router = require('express').Router();
 const trailObject = require('./createTrailObject.js');
 router.use(checkSession);
-
-router.get('/', async function(req, res) {
-    try {
-        const sessionQuery = await db.query(
-            `SELECT * FROM ${db.sessionTable} WHERE session_id = $1`,
-            [req.cookies.session]
-        );
-        const fetchedUserQuery = await db.query(
-            `SELECT * FROM ${db.usersTable} WHERE user_uid = $1`,
-            [sessionQuery.rows[0].user_uid]
-        );
-        const fetchedUser = fetchedUserQuery.rows[0];
 
         async function createTrailWall(fetchedUser) {
             const joinedCities = fetchedUser.joined_cities;
@@ -39,16 +28,18 @@ router.get('/', async function(req, res) {
             return modifiedPosts;
         }
 
+router.get('/', async function(req, res) {
+    try {
+        const fetchedUser = await db.fetchUserData(req.cookies.session);
         const fetchedCities = await db.query(
             `SELECT city_id, city_name FROM ${db.citiesTable};`
         );
 
         const trailWall = await createTrailWall(fetchedUser);
-        console.log(trailWall); // This should now be an array of objects, not Promises
-
-        res.render('index', {
-            title: "Sole-City",
-            user: fetchedUser,
+//        console.log(trailWall); // This should now be an array of objects, not Promises
+        const headerData = await header.fetchHeaderObject(req.cookies.session);
+        res.render('homepage', {
+            headerData:headerData,
             cities: fetchedCities.rows,
             trails: trailWall
         });

@@ -1,0 +1,25 @@
+/* Container styling */
+.alertWidget {
+    background-color: #fff8e1;         /* Light yellow background for alert feel */
+    border: 1px solid #fbc02d;         /* Golden yellow border */
+    border-radius: 6px;                /* Rounded corners */
+    padding: 12px 16px;                /* Space inside */
+    margin: 10px 0;                    /* Space between widgets */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Light shadow */
+    font-family: Arial, sans-serif;
+}
+
+/* Title styling */
+.AlertWidgetTitle {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #e65100;                    /* Dark orange title */
+    margin-bottom: 6px;
+}
+
+/* Author styling */
+.AlertWidgetAuthor {
+    font-size: 0.9rem;
+    color: #555;                       /* Muted text */
+}
+
