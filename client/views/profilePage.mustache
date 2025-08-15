@@ -5,25 +5,25 @@
         <link rel="stylesheet" href="/profilePage.css">
    </head>
    <body>
-        <div class="profilPage" data-id="{{user_uid}}">
+        <div class="profilPage" data-id="{{user.user_uid}}">
             <div class="profile-banner-section"> 
                 <div class="profile-picture">
                     <img src="#" alt="profile picture">  
                 </div>
                 <div class=="profile-displayName">
-                    <h1>{{user_display_name}}</h1>
+                    <h1>{{user.user_display_name}}</h1>
                 </div>
             </div>
             <div class="profile-data">
-                <div><label>First Name: </label>{{user_first_name}}</div>
-                <div><label>Last Name: </label>{{user_last_name}}</div> 
-                <div><label>Email: </label>{{user_email}}</div>
+                <div><label>First Name: </label>{{user.user_first_name}}</div>
+                <div><label>Last Name: </label>{{user.user_last_name}}</div> 
+                <div><label>Email: </label>{{user.user_email}}</div>
             </div>
             <div class="container">
                 <div class="profile-cities">
                 Joined Cities:
                     {{#joined_cities}}
-                        <div>{{joined_cities}}</div>
+                        <div data-id="{{city_id}}"> {{city_name}}</div>
                     {{/joined_cities}}
                 </div>
 

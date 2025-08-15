@@ -1,7 +1,7 @@
 
 const db = require('./database.js');
 const router = require('express').Router();
-
+const trailObject = require('./createTrailObject.js');
 
 router.post('/joinedCities', async(req,res) => {
 
@@ -37,12 +37,35 @@ router.post('/joinedCities', async(req,res) => {
 });
 
 router.get('/profile',async(req,res) =>{
-        console.log('LOGGING the session cookie in profile : ',req.cookies.session);
+    let fetchUserTrailsResult;
+    let trailObjectList;
+    let fetched_joined_cities;
     let user = await db.fetchUserData(req.cookies.session);
-    console.log('LOGGING the fetched User in profile: ',user);
-    
+    try{
+        //fetching user trails
+        fetchUserTrailsResult = await db.query(`SELECT * FROM ${db.postsTable} WHERE user_uid=$1`,[user.user_uid]);
+        let userTrails = fetchUserTrailsResult.rows;
+        console.log('LOGGING user trails in profile:',userTrails); 
+        trailObjectList = await Promise.all(userTrails.map(async trail => await trailObject.createTrailObject(trail)));
+        
+        //fetching joined_cities
+        let placeholder = await user.joined_cities.map((_,i) => `$${i+1}`).join(',');
+        console.log(user.joined_cities);
+        console.log(placeholder);
+        let fetchJoinedCities = await db.query(`SELECT * FROM ${db.citiesTable} WHERE city_id IN (${ placeholder })`,user.joined_cities);
+        fetched_joined_cities = fetchJoinedCities.rows;
+        console.log('LOGGING fetchJoinedCities in Profile:',fetchJoinedCities.rows);
 
-        res.render('profilePage',user);
+
+    }catch(error){
+        console.log('ERROR fetching user data in profilePage',error);
+    }
+//    console.log('LOGGING trailObjects fetched for profile:',trailObjectList);
+//    console.log('LOGGING fetched_cities for profile : ',fetched_joined_cities); 
+    res.render('profilePage',{ 
+        user:user, 
+        joined_cities:fetched_joined_cities,
+        trails:trailObjectList});    
 });
 
 module.exports = router;
