@@ -16,7 +16,6 @@ router.get('/:city_name',async (req,res)=>{
     let fetchTrailTypeQuery = await db.query(`SELECT * from ${db.trailType}`);
     let trailTypes = fetchTrailTypeQuery.rows;
     console.log(trailTypes);
-const placeholders = joinedCities.map((_, i) => `$${i + 1}`).join(',');
     let fetchCityRow = await db.query(`SELECT * FROM ${db.citiesTable} WHERE city_name = '${req.params.city_name}'`);
 //    console.log(fetchCityRow.rows[0]);
     let fetchedTrails;
