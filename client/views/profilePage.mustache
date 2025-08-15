@@ -1,0 +1,41 @@
+<html>
+    <head>
+        <title>Sole-city</title> 
+        <link rel="stylesheet" href="/post.css">
+        <link rel="stylesheet" href="/profilePage.css">
+   </head>
+   <body>
+        <div class="profilPage" data-id="{{user_uid}}">
+            <div class="profile-banner-section"> 
+                <div class="profile-picture">
+                    <img src="#" alt="profile picture">  
+                </div>
+                <div class=="profile-displayName">
+                    <h1>{{user_display_name}}</h1>
+                </div>
+            </div>
+            <div class="profile-data">
+                <div><label>First Name: </label>{{user_first_name}}</div>
+                <div><label>Last Name: </label>{{user_last_name}}</div> 
+                <div><label>Email: </label>{{user_email}}</div>
+            </div>
+            <div class="container">
+                <div class="profile-cities">
+                Joined Cities:
+                    {{#joined_cities}}
+                        <div>{{joined_cities}}</div>
+                    {{/joined_cities}}
+                </div>
+
+                <div class="trail-wall">
+                trails
+                    <div class="trails_section">
+                        {{#trails}}
+                            {{>postTemplate}}
+                        {{/trails}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

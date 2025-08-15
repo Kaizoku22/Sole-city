@@ -1,0 +1,120 @@
+/* General Styles */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #fff7f0; /* very light orange background */
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+/* Center content */
+.page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+/* Login container */
+.login-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 20px;
+}
+
+/* Login form box */
+.login-form {
+    width: 100%;
+    max-width: 380px;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    border: 1px solid #ffe0b3; /* soft orange border */
+    box-shadow: 0 4px 15px rgba(255, 165, 0, 0.2);
+}
+
+/* Form title */
+.form-title {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #ff7a00; /* main orange accent */
+}
+
+/* Labels and input fields */
+label {
+    display: block;
+    margin-top: 12px;
+    font-weight: bold;
+    color: #ff7a00;
+}
+
+.input-field {
+    width: 100%;
+    height: 40px;
+    margin-top: 6px;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ffc107;
+    background-color: #fff9f4;
+    outline: none;
+    transition: border 0.3s, background 0.3s;
+}
+
+.input-field:focus {
+    border-color: #ff7a00;
+    background-color: white;
+}
+
+/* Form actions */
+.form-actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+/* Primary orange button */
+.btn-primary {
+    background-color: #ff7a00;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #e56a00;
+}
+
+/* Secondary button (register) */
+.btn-secondary {
+    background-color: white;
+    color: #ff7a00;
+    border: 2px solid #ff7a00;
+    padding: 8px 16px;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background-color: #ff7a00;
+    color: white;
+}
+
+/* Register section */
+.register-section {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.link {
+    text-decoration: none;
+    color: inherit;
+}
+

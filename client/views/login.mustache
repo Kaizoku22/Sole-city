@@ -1,39 +1,38 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sole-City</title>
-    <link rel="stylesheet" href="/output.css">
-    <script src="https://unpkg.com/htmx.org@1.9.12/dist/htmx.js" integrity="sha384-qbtR4rS9RrUMECUWDWM2+YGgN3U4V4ZncZ0BvUcg9FGct0jqXz3PUdVpU1p0yrXS" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/login.css">
+    <script src="https://unpkg.com/htmx.org@1.9.12/dist/htmx.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="page flex-vertical items-center justify-center">
-    <div class="login-form  w-full h-full mt-20 flex justify-center">
-        <form action="/login" method="post" class="w-2/4">
+    <div class="page">
+        <div class="login-container">
+            <form action="/login" method="post" class="login-form">
+                <h2 class="form-title">Login</h2>
 
-            <label> Email</label> <br>
-            <input type="text" class="m-2 h-10 bg-background w-full rounded-lg border-2 border-primary " name="email"><br>
-            <label> Password</label> <br>
-            <input type="text" class="m-2 h-10 bg-background-secondary w-full rounded-lg border-2 border-primary " name="password"><br>
-            <div class="flex justify-end mt-6"> 
-            <input type='submit' value='Login' class="bg-primary h-12 w-20 ">
-            </div>
-        </form>
-    </div>
-    <div class="flex w-full justify-center">
-       <div class="flex-col"> 
-        <p> Don't Have an Account ?? </p>
+                <label>Email</label>
+                <input type="text" class="input-field" name="email">
 
-	    <button class="bg-primary h-12 w-20 ml-12 mt-5"> 
-		<a href="/register" style="text-decoration: none; color:inherit">Register</a>
-	    </button>
+                <label>Password</label>
+                <input type="password" class="input-field" name="password">
+
+                <div class="form-actions"> 
+                    <input type="submit" value="Login" class="btn-primary">
+                </div>
+            </form>
         </div>
-    </div>  
+
+        <div class="register-section">
+            <p>Don't Have an Account?</p>
+            <button class="btn-secondary">
+                <a href="/register" class="link">Register</a>
+            </button>
+        </div>
     </div>
 </body>
 </html>
-
 
 

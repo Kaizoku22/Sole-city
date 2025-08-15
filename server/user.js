@@ -36,5 +36,13 @@ router.post('/joinedCities', async(req,res) => {
         });
 });
 
+router.get('/profile',async(req,res) =>{
+        console.log('LOGGING the session cookie in profile : ',req.cookies.session);
+    let user = await db.fetchUserData(req.cookies.session);
+    console.log('LOGGING the fetched User in profile: ',user);
+    
+
+        res.render('profilePage',user);
+});
 
 module.exports = router;
