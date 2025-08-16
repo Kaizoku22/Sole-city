@@ -13,6 +13,7 @@ const alertService = require('./alertService.js');
 
 router.get('/:city_name',async (req,res)=>{
     let alertWidgetsList;
+    let joined;
     let fetchTrailTypeQuery = await db.query(`SELECT * from ${db.trailType}`);
     let trailTypes = fetchTrailTypeQuery.rows;
     console.log(trailTypes);
@@ -20,7 +21,10 @@ router.get('/:city_name',async (req,res)=>{
 //    console.log(fetchCityRow.rows[0]);
     let fetchedTrails;
     try{
-
+        let user = await db.fetchUserData(req.cookies.session);
+        if(user.joined_cities != null && user.joined_cities.includes(fetchCityRow.rows[0].city_id))
+        { joined = true}
+        else{ joined = false}
         let fetchTrailsQuery = {
             text:`SELECT * FROM ${db.postsTable} WHERE city_id=$1`,
             values:[fetchCityRow.rows[0].city_id],
@@ -69,8 +73,9 @@ router.get('/:city_name',async (req,res)=>{
 
     const isHtmx = req.get('HX-Request') === 'true';
     if (isHtmx) {
-        res.render('cityPage', {  
+        res.render('cityPage', { 
             city: fetchCityRow.rows[0],
+            joined: joined,
             trails: trailObjectList,
             trailTypes:trailTypes,
             alerts:alertWidgetsList
@@ -79,6 +84,7 @@ router.get('/:city_name',async (req,res)=>{
         let headerData = await header.fetchHeaderObject(req.cookies.session);
         res.render('completeCityPage', {
             headerData: headerData,
+            joined: joined,
             city: fetchCityRow.rows[0],
             trails: trailObjectList,
             trailTypes:trailTypes,

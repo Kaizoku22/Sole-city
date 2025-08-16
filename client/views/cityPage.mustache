@@ -1,16 +1,24 @@
 <link rel="stylesheet" href="/cityPage.css">
 <div class="page-content">
     <h1>{{city.city_name}}</h1>
-    <button 
-        hx-post="/user/joinedCities" 
-        hx-swap="none"
-        hx-vals='{
-                "city_id" : "{{city.city_id}}"
-                }'>
-            Join 
-    </button>       
- 
-    
+    <div class="joinButton">
+        {{#joined}}
+            joined
+        {{/joined}}
+
+        {{^joined}}
+            <button 
+                hx-post="/user/joinedCities" 
+                hx-swap="outerHTML"
+                hx-target=".joinButton"
+                hx-vals='{
+                        "city_id" : "{{city.city_id}}"
+                        }'>
+                    Join 
+            </button>       
+
+        {{/joined}}    
+    </div>
     <div class="create-trail">
                 
     <form method="POST" action="/city/{{city.city_name}}/trails" enctype="multipart/form-data" >

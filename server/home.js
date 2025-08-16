@@ -33,6 +33,7 @@ async function createTrailWall(fetchedUser) {
 }
 
 router.get('/', async function(req, res) {
+    let alertsWidgetList;
     try {
         const fetchedUser = await db.fetchUserData(req.cookies.session);
         const fetchedCities = await db.query(
@@ -40,8 +41,12 @@ router.get('/', async function(req, res) {
         );
         const alerts = await alertService.fetchCombinedAlerts(fetchedUser.joined_cities);
         console.log('LOGGING fetched alerts in home : ',alerts);
-        const alertsWidgetList = alerts.map(alert => alertService.createAlertWidgetObject(alert));
-        console.log('LOGGING alertsWidgetList in home : ',alertsWidgetList);
+        if(!alerts){
+            alertsWidgetList = false; 
+        }else{
+            alertsWidgetList = alerts.map(alert => alertService.createAlertWidgetObject(alert));
+            console.log('LOGGING alertsWidgetList in home : ',alertsWidgetList);
+        }
         const trailWall = await createTrailWall(fetchedUser);
 //        console.log(trailWall); // This should now be an array of objects, not Promises
         const headerData = await header.fetchHeaderObject(req.cookies.session);

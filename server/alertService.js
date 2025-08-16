@@ -13,7 +13,7 @@ function createAlertWidgetObject(trailObject){
 async function fetchCombinedAlerts(joined_cities){
     let fetchAlertTrailResult;
     let trailObjects;
-    if(joined_cities.length === 0 || joined_cities == undefined){
+    if(joined_cities == undefined || joined_cities.length == 0){
         return false;
     }
     let placeHolder = joined_cities.map((_,i)=> `$${i+1}`).join(',');
