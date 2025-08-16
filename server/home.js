@@ -81,6 +81,27 @@ router.get('/alerts',async(req,res)=>{
 
 });
 
+router.get('/joinedCities',async (req,res)=>{
+    let joined_cities;
+    try{
+        const fetchedUser = await db.fetchUserData(req.cookies.session);
+        joined_cities = await db.query(
+                    `SELECT city_id, city_name FROM ${db.citiesTable};`
+                ); 
+    }catch(error){
+        console.log('ERROR fetching joined cities in homepage:',error);
+    }
+    let cities = joined_cities.rows;
+    if(cities!= null && cities.length > 0)
+    {
+        res.status(200).render('joinedCitiesList',{cities:cities});
+
+    }else{
+        res.status(404).render('joinedCitiesList',{cities:[]});
+    }
+
+});
+
 module.exports = router;
 
 

@@ -1,0 +1,43 @@
+<script>
+    var preview = function(event){
+            var output = document.getElementById("pfp");
+            output.src = URL.createObjectURL(event.target.files[0]);
+        }
+</script>
+<div class="profileForm">
+<form 
+    hx-put="/user/profile/update"
+    hx-encoding="multipart/form-data"
+    hx-target=".profileForm"
+    hx-swap="outerHTML"
+>
+    <div class="profile-banner-section"> 
+        <div class="profile-picture">
+            <img
+                id="pfp"
+                src="{{user.profileImage}}" 
+                alt="profile picture"
+                style="cursor: pointer;"
+                onclick="document.getElementById('profile-img-input').click();"
+            >  
+            <input type="file" 
+                   id="profile-img-input" 
+                   name="profileImage"
+                   style="display: none;" 
+                   onchange="preview(event)"
+                   accept="image/*"
+            />
+        </div>
+        <div class="profile-displayName">
+            <h1><input type="text" value="{{user.user_display_name}}" disabled></input></h1> Can not change Username
+        </div>
+    </div>
+    <div class="profile-data">
+        <div><label>First Name: </label> <input type="text" name="first_name" value="{{user.user_first_name}}"></div>
+        <div><label>Last Name: </label> <input type="text" name="last_name" value="{{user.user_last_name}}"></div> 
+        <div><label>Email: </label> <input type="text" name="email" value="{{user.user_email}}" disabled> <p>Can not change Email</p></div>
+        <button type="submit">Update Profile</button>
+        <a href="/user/profile"> cancle </a>
+   </div>
+    </form>
+</div>

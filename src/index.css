@@ -13,10 +13,28 @@ display:flex;
 
 .right-sidebar{
     width:20%;
+    margin-left:20px;
 }
 .cities{
    height:20%; 
 }
+
+.selectCity > div{
+    margin-top:16px;
+    background: #fff7ec;
+    font-weight: bold;
+    border-radius: 12px;
+    padding: 10px 18px;
+    font-size: 1rem;
+    box-shadow: 0 1px 6px rgba(255, 165, 0, 0.05);
+
+}
+.selectCity > div > a{
+    text-decoration:none;
+    color: #ff9800;
+}
+
+
 .alerts-section{
     height:40%;
 }

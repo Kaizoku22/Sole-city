@@ -3,26 +3,34 @@
         <title>Sole-city</title> 
         <link rel="stylesheet" href="/post.css">
         <link rel="stylesheet" href="/profilePage.css">
+        <script src="https://unpkg.com/htmx.org@1.9.12/dist/htmx.js" integrity="sha384-qbtR4rS9RrUMECUWDWM2+YGgN3U4V4ZncZ0BvUcg9FGct0jqXz3PUdVpU1p0yrXS" crossorigin="anonymous"></script>
    </head>
    <body>
         <div class="profilPage" data-id="{{user.user_uid}}">
-            <div class="profile-banner-section"> 
-                <div class="profile-picture">
-                    <img src="#" alt="profile picture">  
+            <div class="profileForm">
+                <div class="profile-banner-section"> 
+                    <div class="profile-picture">
+                        <img src="#" alt="profile picture">  
+                    </div>
+                    <div class=="profile-displayName">
+                        <h1>{{user.user_display_name}}</h1>
+                    </div>
                 </div>
-                <div class=="profile-displayName">
-                    <h1>{{user.user_display_name}}</h1>
+                <div class="profile-data">
+                    <div><label>First Name: </label>{{user.user_first_name}}</div>
+                    <div><label>Last Name: </label>{{user.user_last_name}}</div> 
+                    <div><label>Email: </label>{{user.user_email}}</div>
+                    {{#inspecting}}
+                        <button>
+                            Chat
+                        </button>
+                    {{/inspecting}}
+                    <button class="edit-profile-button"
+                        hx-get="/user/profile/edit"
+                        hx-target=".profileForm"
+                        hx-swap ="outerHTML"
+                        "> Edit Profile</button>
                 </div>
-            </div>
-            <div class="profile-data">
-                <div><label>First Name: </label>{{user.user_first_name}}</div>
-                <div><label>Last Name: </label>{{user.user_last_name}}</div> 
-                <div><label>Email: </label>{{user.user_email}}</div>
-                {{#inspecting}}
-                    <button>
-                        Chat
-                    </button>
-                {{/inspecting}}
             </div>
             <div class="container">
                 <div class="profile-cities">

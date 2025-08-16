@@ -3,6 +3,10 @@ const db = require('./database.js');
 const router = require('express').Router();
 const trailObject = require('./createTrailObject.js');
 
+const multer  = require('multer');
+const storage =  multer.memoryStorage();
+const upload = multer({ storage: storage });
+
 router.post('/joinedCities', async(req,res) => {
 
     //remember to set exists check later
@@ -115,6 +119,22 @@ router.get('/:userName/profile',async(req,res)=>{
 
             }
  });
+
+router.get('/profile/edit',async(req,res)=>{
+    let user;
+    try{
+        user = await db.fetchUserData(req.cookies.session);
+    }catch(error){
+        console.log('ERROR fetching user in profile/edit : ',error);
+    };
+    console.log(user);
+    res.render('editProfile',{user:user});
+});
+
+router.put('/profile/update',upload.single('profileImage'),async(req,res)=>{
+    console.log('LOGGING REQ OBJECT IN PUT/profile',req.file);
+
+});
 
 
 module.exports = router;
