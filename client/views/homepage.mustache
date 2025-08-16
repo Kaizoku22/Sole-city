@@ -25,13 +25,10 @@
     <div class ="left-sidebar">    
 
     </div>
-    <div class="trailwall">
-        <h1>TRAIL WALL</h1>
-        <div class="trails_section">
-            {{#trails}}
-                {{>postTemplate}}
-            {{/trails}}
-        </div>
+    <div class="trailwall" 
+        hx-get="/trailwall"
+        hx-trigger="load"
+        hx-swap="innerHTML">
     </div>
     <div class= "right-sidebar">
         <div class="cities">
@@ -47,11 +44,10 @@
                 {{/cities}}
             </div>
         </div>
-        <div class="alerts-section">
-            Alerts   
-            {{#alerts}}
-                {{> alertWidget}}
-            {{/alerts}}
+        <div class="alerts-section"
+            hx-get="/alerts"
+            hx-trigger="load"
+            hx-swap="innerHTML">
         </div>
         <div class="resources-section">
             Saved Resources

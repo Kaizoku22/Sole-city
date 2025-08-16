@@ -1,0 +1,10 @@
+{{#alerts.length}}
+    Alerts:
+    {{#alerts}}
+        {{>alertWidget}}
+    {{/alerts}}
+{{/alerts.length}}
+{{^alerts.length}}
+    <div>No alerts!</div>
+{{/alerts.length}}
+

@@ -32,29 +32,16 @@ async function createTrailWall(fetchedUser) {
     return modifiedPosts;
 }
 
+
 router.get('/', async function(req, res) {
-    let alertsWidgetList;
     try {
-        const fetchedUser = await db.fetchUserData(req.cookies.session);
         const fetchedCities = await db.query(
             `SELECT city_id, city_name FROM ${db.citiesTable};`
-        );
-        const alerts = await alertService.fetchCombinedAlerts(fetchedUser.joined_cities);
-        console.log('LOGGING fetched alerts in home : ',alerts);
-        if(!alerts){
-            alertsWidgetList = false; 
-        }else{
-            alertsWidgetList = alerts.map(alert => alertService.createAlertWidgetObject(alert));
-            console.log('LOGGING alertsWidgetList in home : ',alertsWidgetList);
-        }
-        const trailWall = await createTrailWall(fetchedUser);
-//        console.log(trailWall); // This should now be an array of objects, not Promises
+        );        
         const headerData = await header.fetchHeaderObject(req.cookies.session);
         res.render('homepage', {
             headerData:headerData,
             cities: fetchedCities.rows,
-            trails: trailWall,
-            alerts:alertsWidgetList
         });
     } catch (err) {
         console.error(err);
@@ -62,17 +49,37 @@ router.get('/', async function(req, res) {
     }
 });
 
-
-router.get('/getPosts',async(req,res) =>{
-      let result = await db.query(`SELECT * FROM ${db.postsTable}`);
-    res.render('postList',result.rows[0]);
-} );
-
-router.get('/trial',(req,res)=>{
-    res.render('trial');
+router.get('/trailwall',async(req,res)=>{
+    let fetchedUser;
+    let trailWall;
+   try{
+        fetchedUser = await db.fetchUserData(req.cookies.session);
+        trailWall = await createTrailWall(fetchedUser);
+   }catch(error){
+    console.log('ERROR fetching trailWall in home:',error);
+   }
+    res.render('trailWall',{trails:trailWall});
 
 });
 
+router.get('/alerts',async(req,res)=>{
+    let alerts;
+    try{
+        const fetchedUser = await db.fetchUserData(req.cookies.session);
+        alerts = await alertService.fetchCombinedAlerts(fetchedUser.joined_cities);
+            }
+    catch(error){
+        console.log('ERROR Fetching alerts for homepage :',error);
+    }
+    if(!alerts || alerts.length === 0){
+            res.render('alertsList',[]);
+        }else{
+            let alertsWidgetList = alerts.map(alert => alertService.createAlertWidgetObject(alert));
+            console.log('LOGGING alertsWidgetList in home : ',alertsWidgetList);
+            res.render('alertsList',{alerts:alertsWidgetList});
+        }
+
+});
 
 module.exports = router;
 
