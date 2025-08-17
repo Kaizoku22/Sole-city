@@ -131,10 +131,30 @@ router.get('/profile/edit',async(req,res)=>{
     res.render('editProfile',{user:user});
 });
 
-router.put('/profile/update',upload.single('profileImage'),async(req,res)=>{
-    console.log('LOGGING REQ OBJECT IN PUT/profile',req.file);
+router.put('/profile/update', upload.single('profileImage'), async (req, res) => {
+    try {
+        const user = await db.fetchUserData(req.cookies.session);
+        let profilePicUrl;
+        if(user.profile_picture == null){
+            profilePicUrl = await db.uploadProfileImg(user.user_display_name, req.file,false);
+        }else{
+            profilePicUrl = await db.uploadProfileImg(user.user_display_name, req.file,true);
+        }
+        
+        const updateProfile = await db.query(
+            `UPDATE ${db.usersTable} 
+            SET user_first_name=$1,
+            user_last_name=$2, 
+            profile_picture=$3 
+            WHERE user_uid=$4`,
+            [req.body.first_name, req.body.last_name, profilePicUrl, user.user_uid]
+        );
 
+        res.status(200).set('HX-refresh','true').send();
+    } catch (error) {
+        console.log('ERROR in updating user profile in profile/update : ', error);
+        res.status(500).send('Error updating profile');
+    }
 });
-
 
 module.exports = router;

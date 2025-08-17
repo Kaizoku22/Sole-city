@@ -41,6 +41,25 @@ async function fetchUserData(session_id){
     return fetchedUser;
 }
 
+async function uploadProfileImg(userName,file,upsert){
+    console.log('LOGGING USER ID IN uploadProfileImg :',userName);
+    console.log('LOGGING file in uploadProfileImg : ',file);
+
+    const {data,error} = await supabase.storage
+        .from('profile-img')
+        .upload(`${userName}/${file.originalname}`,
+        file.buffer,{upsert:upsert});
+    if(error){
+        console.log('ERROR uploading profile-img to supabase:',error);
+        throw error;
+    }
+    else{
+        console.log('LOGGING returned object from supabase: ',data);
+        const {data: image}= supabase.storage.from("profile-img").getPublicUrl(data.path);
+        console.log('LOGGING public url :',image.publicUrl);
+        return image.publicUrl;
+    }
+}
 
 
 async function uploadMedia(postID,file){
@@ -96,5 +115,20 @@ return createHash('sha256').update(pass).digest('hex');
 }
 
 
-module.exports = { hash,query,uploadMedia,postsTable,usersTable,passTable,sessionTable,citiesTable,trailType,supabase,fetchSignedUrl,uploadMultipleMedia,fetchUserData};
+module.exports = { 
+    hash,
+    query,
+    uploadMedia,
+    postsTable,
+    usersTable,
+    passTable,
+    sessionTable,
+    citiesTable,
+    trailType,
+    supabase,
+    fetchSignedUrl,
+    uploadMultipleMedia,
+    fetchUserData,
+    uploadProfileImg
+};
 
