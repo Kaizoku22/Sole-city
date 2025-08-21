@@ -29,7 +29,7 @@ async function fetchCombinedAlerts(joined_cities){
         }
         let trails = fetchAlertTrailResult.rows;
         trailObjects = await Promise.all(trails.map(async(trail) => await trailObject.createTrailObject(trail)));
-        console.log('LOGGING trailObjects in fetchCombinedAlerts : ',trailObjects);
+//        console.log('LOGGING trailObjects in fetchCombinedAlerts : ',trailObjects);
 
     return trailObjects; 
 }

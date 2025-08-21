@@ -6,7 +6,23 @@
     <link rel="stylesheet" href="/index.css">
     <link rel="stylesheet" href="/post.css">
     <link rel="stylesheet" href="/header.css">
-  <script src="https://unpkg.com/htmx.org@1.9.12/dist/htmx.js" integrity="sha384-qbtR4rS9RrUMECUWDWM2+YGgN3U4V4ZncZ0BvUcg9FGct0jqXz3PUdVpU1p0yrXS" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.12/dist/htmx.js" integrity="sha384-qbtR4rS9RrUMECUWDWM2+YGgN3U4V4ZncZ0BvUcg9FGct0jqXz3PUdVpU1p0yrXS" crossorigin="anonymous"></script>
+   <script src="/socket.io/socket.io.js"></script>
+<script>
+  const socket = io();
+
+  socket.on('connect', () => {
+    console.log('Connected with id:', socket.id);
+  });
+
+  socket.on('your-server-event', (data) => {
+    // Handle incoming messages, update DOM manually or trigger HTMX swaps
+  });
+
+  // send messages as needed
+  socket.emit('your-client-event', { /* data */});
+</script> 
+
 <script>
   document.addEventListener("DOMContentLoaded", (event) => {
     document.body.addEventListener('htmx:beforeSwap', function(evt) {
@@ -38,7 +54,9 @@
         <button class="draw-map">&gt;</button>
     </div>
     <div class ="left-sidebar">    
-
+        <div hx-ext="ws" ws-connect="ws:/">
+            chat room
+        </div>
     </div>
     <div class="trailwall" 
         hx-get="/trailwall"
