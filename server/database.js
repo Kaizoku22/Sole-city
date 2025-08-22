@@ -25,6 +25,8 @@ const passTable  ="user_passwords";
 const sessionTable ="user_sessions";
 const citiesTable = "cities_data";
 const trailType = "post_type";
+const chatroomTable = "chat_rooms";
+const messagesTable = "messages"
 
 function query(text,params,callback)
 {
@@ -129,6 +131,8 @@ module.exports = {
     fetchSignedUrl,
     uploadMultipleMedia,
     fetchUserData,
-    uploadProfileImg
+    uploadProfileImg,
+    chatroomTable,
+    messagesTable
 };
 
