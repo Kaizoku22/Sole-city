@@ -1,4 +1,8 @@
 const router = require('express').Router();
-require('dotenv').config();
+
+router.post('/',(req,res)=>{
+   console.log(req.body);
+});
+
 
 module.exports=router

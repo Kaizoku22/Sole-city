@@ -22,9 +22,16 @@
                     <div><label>Last Name: </label>{{user.user_last_name}}</div> 
                     <div><label>Email: </label>{{user.user_email}}</div>
                     {{#inspecting}}
-                        <button>
-                            Chat
-                        </button>
+                        <div class="chat-button">
+                            <button 
+                                hx-post="/chat" 
+                                hx-vals={"chatWith":"{{user.user_uid}}"}
+                                hx-indicator=".chat-button"
+                                >
+                                Chat
+                            </button>
+                            {{> loader}}
+                        </div>
                     {{/inspecting}}
                     <button class="edit-profile-button"
                         hx-get="/user/profile/edit"

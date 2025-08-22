@@ -1,0 +1,20 @@
+
+.htmx-indicator {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 500ms ease-in;
+    transform-origin: center;
+}
+
+.htmx-request .htmx-indicator {
+    opacity: 1;
+    visibility: visible;
+    animation: loading 2s linear infinite;
+}
+
+@keyframes loading {
+    0% { transform: rotate(0deg); }
+   100% { transform: rotate(360deg); }
+}
+
+
