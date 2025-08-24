@@ -20,11 +20,15 @@ module.exports = {io}
 
 io.on('connection',socket =>{
     console.log(`connected to socket: `,socket.id);
+    
+    socket.on('sendMessage',(obj)=>{
+        console.log('user send message:',obj);
+        socket.broadcast.emit('receiveMessage',obj);
+    });
 
     socket.on('disconnect',() => {
     console.log('user disconnected') 
     })
-
 })
 
 app.set('view engine','mustache' );

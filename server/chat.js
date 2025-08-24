@@ -1,5 +1,35 @@
 const db = require('./database.js');
+const chatRoomObject = require('./createChatRoomWidgetObject.js');
 const router = require('express').Router();
+
+router.get('/',async (req,res)=>{
+    const user = await db.fetchUserData(req.cookies.session);
+    let chatRoomList =[];
+
+//    console.log('Users chatrooms:',user.joined_chat_rooms);
+    if(user.joined_chat_rooms == null){
+        res.render('chatRoomList',{chatRoomsList:user.joined_chat_rooms});
+        return;
+    }
+
+    //fetcing ChatRooms from Database
+    const fetchChatRoomQuery = `SELECT * from ${db.chatroomTable} 
+                                WHERE chat_room_id = $1`;
+    for(const roomID of user.joined_chat_rooms){
+       try{
+           let res = await db.query(fetchChatRoomQuery,[roomID]); 
+           let chatRoomData = res.rows[0];
+//           console.log('LOGGING chatRoomData: ',chatRoomData);
+           let completeObject = await chatRoomObject.createObject(user.user_uid,chatRoomData);
+           chatRoomList.push(completeObject);
+             
+       }catch(error){
+            console.log(`ERROR Fetching chatRoom for id :${roomID} : `,error)
+       }
+    }
+//    console.log(chatRoomList);
+    res.render('chatRoomList',{chatRoomsList:chatRoomList});
+});
 
 router.post('/',async (req,res)=>{
 
@@ -7,7 +37,7 @@ router.post('/',async (req,res)=>{
     let chatRoom;
 
 //    console.log('LOGGING user id to create chatroom 1:',user.user_uid);
-//    console.log('LOGGING user id to create chatroom 2:',req.body.chatWith);
+//     console.log('LOGGING user id to create chatroom 2:',req.body.chatWith);
     let exists = await checkIfChatExists(user,req.body.chatWith);
     if(exists){
         res.send('Already has chat');
@@ -25,6 +55,20 @@ router.post('/',async (req,res)=>{
         console.log('ERROR creating chatRoom',error);
         res.status(500).send('could not start a chat please try again later');
     }     
+});
+
+
+router.get('/:chat_room_id',async(req,res)=>{
+    let user = await db.fetchUserData(req.cookies.session);
+    let chatRoom;
+    try{
+        let response = await db.query(`SELECT * FROM ${db.chatroomTable} WHERE chat_room_id = $1`,[req.params.chat_room_id]);
+        chatRoom = response.rows[0];
+    }catch(error){
+        console.log('ERROR fetching chat room',error);
+    }
+
+    res.render('chatWindow',{chatRoom:chatRoom,senderID:user.user_uid});
 });
 
 async function createChatRoom(members,isGroupChat,chatRoomName,chatRoomProfile){

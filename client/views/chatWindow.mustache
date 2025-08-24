@@ -1,0 +1,47 @@
+<script>
+const socket = window.socket;
+const chatInputForm = document.getElementById('chatForm');
+const messageInput = document.getElementById('messageText');
+const chatRoomID = "{{chatRoom.chat_room_id}}"
+
+function displayMessage(message){
+        const displaySection = document.getElementById('chat-messages-display-section');
+        const div = document.createElement('div');
+        div.textContent= message;
+        displaySection.append(div);
+
+    };
+
+chatInputForm.addEventListener('submit',(event) => { 
+        event.preventDefault();
+        const message = messageInput.value;
+        if(message === '') return;
+        displayMessage(message);
+        socket.emit('sendMessage',{chat_room_id:chatRoomID,chat_message:message,senderID:"{{senderID}}"});
+        messageInput.value="";
+    })
+socket.on('receiveMessage',(obj)=>{
+        displayMessage(obj.chat_message);
+    })
+</script>
+
+<div class="chat-window">
+    <div class="title section">
+       <button class="back-button" 
+            hx-get="/chat"
+            hx-target=".chat-section">
+            Back
+       </button>
+       <div class="chat-room-title">
+            <p>{{chat_room_name}}</p>
+       </div>
+    </div>
+    <div class="chat-messages-display-section" id="chat-messages-display-section">
+    </div>
+    <div class="chat-room-input-section">
+        <form method="post" id="chatForm">
+            <input type="text" name="message" id="messageText">
+            <input type="submit" value="send">
+        </form>
+    </div>
+</div>

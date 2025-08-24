@@ -7,10 +7,16 @@ display:flex;
     width:60%;
     overflow:auto;
 }
+
+/*
+HomePage left-sidebar chatsection*/
 .left-sidebar{
     width:20%
 }
-
+.chat-section{
+    display:flex;
+    flex-direction: column;
+}
 .right-sidebar{
     width:20%;
     margin-left:20px;

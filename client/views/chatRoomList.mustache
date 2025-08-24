@@ -1,0 +1,9 @@
+chats:
+{{#chatRoomsList.length}}
+    {{#chatRoomsList}}
+        {{>chatRoomWidget}}
+    {{/chatRoomsList}}
+{{/chatRoomsList.length}}
+{{^chatRoomsList.length}}
+    No chats
+{{/chatRoomsList.length}}

@@ -1,0 +1,16 @@
+<link rel="stylesheet" href="/chatRoomWidget.css">
+<button 
+    hx-get="/chat/{{chat_room_id}}" 
+    hx-target=".chat-section"
+    style="all:unset;outline:revert">
+<div class="chatRoomWidget"
+     data-hidden="{{chat_room_id}}"
+     hx-get="/chat/{{chat_room_id}}">
+    <div class="chatRoomProfilePic">
+        <img src="{{chat_room_profile}}" alt="chat room profile pic" height="30px" width="30px">
+    </div>
+    <div class="chatRoomName">
+        <p>{{chat_room_name}}</p>
+    </div>
+</div>
+</button>
