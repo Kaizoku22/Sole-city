@@ -23,7 +23,12 @@ io.on('connection',socket =>{
     
     socket.on('sendMessage',(obj)=>{
         console.log('user send message:',obj);
-        socket.broadcast.emit('receiveMessage',obj);
+        socket.to(obj.chat_room_id).emit('receiveMessage',obj);
+    });
+
+    socket.on('joinRoom',(chatRoomID)=>{
+        console.log('trying to join chatRoomID : ',chatRoomID);
+        socket.join(chatRoomID);
     });
 
     socket.on('disconnect',() => {

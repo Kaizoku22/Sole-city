@@ -63,7 +63,8 @@ router.get('/:chat_room_id',async(req,res)=>{
     let chatRoom;
     try{
         let response = await db.query(`SELECT * FROM ${db.chatroomTable} WHERE chat_room_id = $1`,[req.params.chat_room_id]);
-        chatRoom = response.rows[0];
+        chatRoom = await chatRoomObject.createObject(user.user_uid,response.rows[0]);
+        console.log('LOGGING chatRoom object: ',chatRoom)
     }catch(error){
         console.log('ERROR fetching chat room',error);
     }
@@ -103,6 +104,9 @@ async function pushChatRoomToUsers(users,chatroomID){
 
 async function checkIfChatExists(user,chatWithID){
     const chatRooms = user.joined_chat_rooms; 
+    if(chatRooms === null){
+    return false;
+    }
     console.log(chatRooms)
     const fetchChatRoomQuery = `SELECT * FROM ${db.chatroomTable}
         WHERE chat_room_id = $1`;

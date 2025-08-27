@@ -1,14 +1,21 @@
-<div class="chat-window">
+<div class="chat-window"  data-chatRoomID="{{chatRoom.chat_room_id}}">
     <script>
     const socket = window.socket;
     const chatInputForm = document.getElementById('chatForm');
     const messageInput = document.getElementById('messageText');
     const chatRoomID = "{{chatRoom.chat_room_id}}"
+    const senderID = "{{senderID}}";
+    console.log(senderID);
 
-    function displayMessage(message){
+    function displayMessage(obj){
             const displaySection = document.getElementById('chat-messages-display-section');
             const div = document.createElement('div');
-            div.textContent= message;
+            div.textContent= obj.chat_message;
+
+            if(obj.senderID == senderID){
+                div.classList.add('sent');
+            }
+            else{ div.classList.add('received');}
             displaySection.append(div);
 
         };
@@ -17,13 +24,18 @@
             event.preventDefault();
             const message = messageInput.value;
             if(message === '') return;
-            displayMessage(message);
-            socket.emit('sendMessage',{chat_room_id:chatRoomID,chat_message:message,senderID:"{{senderID}}"});
+            displayMessage({chat_room_id:chatRoomID,chat_message:message,senderID:senderID});
+            socket.emit('sendMessage',{chat_room_id:chatRoomID,chat_message:message,senderID:senderID});
             messageInput.value="";
         })
+
     socket.on('receiveMessage',(obj)=>{
-            displayMessage(obj.chat_message);
+            displayMessage(obj);
         })
+    function simplefunction(){
+            console.log('simple function');
+        }
+
     </script>
 
     <div class="title section">
@@ -31,10 +43,11 @@
             hx-get="/chat"
             hx-swap="innerHTML"
             hx-target=".chat-section">
-            Back
+            <
        </button>
        <div class="chat-room-title">
-            <p>{{chat_room_name}}</p>
+            <img src="{{chatRoom.chat_room_profile}}" width="40px" height="40px"></img>
+            <p>{{chatRoom.chat_room_name}}</p>
        </div>
     </div>
     <div class="chat-messages-display-section" id="chat-messages-display-section">
