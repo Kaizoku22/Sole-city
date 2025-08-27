@@ -5,6 +5,11 @@
         <link rel="stylesheet" href="/profilePage.css">
         <script src="https://unpkg.com/htmx.org@1.9.12/dist/htmx.js" integrity="sha384-qbtR4rS9RrUMECUWDWM2+YGgN3U4V4ZncZ0BvUcg9FGct0jqXz3PUdVpU1p0yrXS" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/htmx-ext-ws@2.0.2" integrity="sha384-vuKxTKv5TX/b3lLzDKP2U363sOAoRo5wSvzzc3LJsbaQRSBSS+3rKKHcOx5J8doU" crossorigin="anonymous"></script>
+        <script>
+           function simpleFunction(){
+            console.log('Logging Simple function:');
+               } 
+        </script>
    </head>
    <body>
         <div class="profilPage" data-id="{{user.user_uid}}">
@@ -25,6 +30,7 @@
                         <div class="chat-button">
                             <button 
                                 hx-post="/chat" 
+                                hx-on:after-request="simpleFunction()"
                                 hx-vals={"chatWith":"{{user.user_uid}}"}
                                 hx-indicator=".chat-button"
                                 >
