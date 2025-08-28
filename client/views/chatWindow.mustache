@@ -1,42 +1,4 @@
-<div class="chat-window"  data-chatRoomID="{{chatRoom.chat_room_id}}">
-    <script>
-    const socket = window.socket;
-    const chatInputForm = document.getElementById('chatForm');
-    const messageInput = document.getElementById('messageText');
-    const chatRoomID = "{{chatRoom.chat_room_id}}"
-    const senderID = "{{senderID}}";
-    console.log(senderID);
-
-    function displayMessage(obj){
-            const displaySection = document.getElementById('chat-messages-display-section');
-            const div = document.createElement('div');
-            div.textContent= obj.chat_message;
-
-            if(obj.senderID == senderID){
-                div.classList.add('sent');
-            }
-            else{ div.classList.add('received');}
-            displaySection.append(div);
-
-        };
-
-    chatInputForm.addEventListener('submit',(event) => { 
-            event.preventDefault();
-            const message = messageInput.value;
-            if(message === '') return;
-            displayMessage({chat_room_id:chatRoomID,chat_message:message,senderID:senderID});
-            socket.emit('sendMessage',{chat_room_id:chatRoomID,chat_message:message,senderID:senderID});
-            messageInput.value="";
-        })
-
-    socket.on('receiveMessage',(obj)=>{
-            displayMessage(obj);
-        })
-    function simplefunction(){
-            console.log('simple function');
-        }
-
-    </script>
+<div class="chat-window"  data-chatRoomID="{{chatRoom.chat_room_id}}" data-senderID="{{senderID}}">
 
     <div class="title section">
        <button class="back-button" 

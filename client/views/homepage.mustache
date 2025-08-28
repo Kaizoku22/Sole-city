@@ -45,11 +45,59 @@
                 const chatRoomID = document.querySelector('.chat-window').dataset.chatroomid;
                 console.log('joined chatRoom : ',chatRoomID);
                 socket.emit('joinRoom',chatRoomID)
+
+                const chatInputForm = document.getElementById('chatForm');
+                const messageInput = document.getElementById('messageText');
+                const senderID = document.querySelector('.chat-window').dataset.senderid;
+                console.log(senderID);
+
+                function displayMessage(obj){
+                        const displaySection = document.getElementById('chat-messages-display-section');
+                        const div = document.createElement('div');
+                        div.textContent= obj.chat_message;
+
+                        if(obj.senderID == senderID){
+                            div.classList.add('sent');
+                        }
+                        else{ div.classList.add('received');}
+                        displaySection.append(div);
+
+                    };
+
+                chatInputForm.addEventListener('submit',(event) => { 
+                        event.preventDefault();
+                        const message = messageInput.value;
+                        if(message === '') return;
+                        displayMessage({chat_room_id:chatRoomID,chat_message:message,senderID:senderID});
+                        socket.emit('sendMessage',{chat_room_id:chatRoomID,chat_message:message,senderID:senderID});
+                        messageInput.value="";
+                    })
+
+                socket.on('receiveMessage',(obj)=>{
+                        displayMessage(obj);
+                    })
+
                 }
         });
       });
+// handling the reapplication of handleFormSubmit script after swaps
+        document.body.addEventListener('htmx:afterSwap', function(evt) {
+          // Check if the swapped area contains your form
+          const chatInputForm = document.getElementById('chatForm');
+    const messageInput = document.getElementById('messageText');
 
+          if (chatInputForm) {
+            chatInputForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const message = messageInput.value;
+                if(message === '') return;
+                displayMessage({chat_room_id:chatRoomID,chat_message:message,senderID:senderID});
+                socket.emit('sendMessage',{chat_room_id:chatRoomID,chat_message:message,senderID:senderID});
+                messageInput.value="";
 
+            });
+          }
+        });
     </script> 
 
 </head>
