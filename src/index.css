@@ -1,3 +1,48 @@
+
+.map-container{
+    position: fixed;
+    display: flex;
+    align-items: center;
+    height: 100vh;
+}
+
+/*
+ map libre css */
+
+#map{
+    height:100%;
+    width:100%;
+
+}
+.map {
+    /* Start hidden by default */
+    top: 10%;
+    left:0%;
+    width: 80vw;
+    height: 100vh;
+    background: #f3f3f3;
+    border-radius: 15px;
+    box-shadow: 0 3px 18px rgba(0,0,0,0.25);
+    z-index: 9999;
+    transition: all 0.3s ease;
+    overflow: auto;
+}
+.draw-map {
+    margin-left: 8px;
+    z-index: 10000;
+    flex-shrink: 0;
+}
+/* When hidden class is present, hide with display:none */
+.map.hidden {
+    display: none !important;
+}
+
+/* When hidden class is not present, show the map */
+.map:not(.hidden) {
+    display: block;
+}
+
+
 .page{
 display:flex;
 }
