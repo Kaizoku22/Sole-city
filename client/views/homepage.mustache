@@ -13,6 +13,8 @@
     <script src='https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.js'></script>
     <link href='https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.css' rel='stylesheet' />
     <script>
+
+
     //initialising socket
       window.socket = io();
 
@@ -111,13 +113,22 @@
     <div class="map-container ">
         <div class="map hidden">
         <div id='map'></div>
-        <script>
-        var map = new maplibregl.Map({
+        <script>       
+        let Userlocation;
+        fetch('http://ip-api.com/json/?fields=61439')
+            .then((res)=> res.json())
+            .then((res)=>{console.log(res.lat)});
+         console.log('userLocation: ',Userlocation); 
+
+         var map = new maplibregl.Map({
           container: 'map',
-          style: 'https://demotiles.maplibre.org/style.json', // stylesheet location
-          center: [-74.5, 40], // starting position [lng, lat]
-          zoom: 9 // starting zoom
-        });
+          style: 'https://api.maptiler.com/maps/streets-v2/style.json?key=I6spCmeih56SEqbVqt8w', // stylesheet location
+          center: [72.89, 19.03], // starting position [lng, lat]
+          zoom: 10 // starting zoom
+            });  
+            let marker = new maplibregl.Marker()
+              .setLngLat([72.89, 19.03])
+              .addTo(map);
         </script> 
         </div>
         <button class="draw-map"> > </button>
