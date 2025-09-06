@@ -120,14 +120,16 @@ router.get('/:city_name/trails',async(req,res)=>{
 router.post('/:city_name/trails',upload.array('trailImages',10),async (req,res) =>{
     console.log('post trail req body:',req.body);
     console.log('post trail type :',req.body.trailType);
+    const locationData = req.body.trailLocation;
+    console.log(locationData);
 //    console.log(req.files);
     const user = await db.fetchUserData(`${req.cookies.session}`);
 //    console.log('user_id fetched from db:',user);
     const createTrailQuery = {
         text:`INSERT into ${db.postsTable}
-        (post_id,user_uid,city_id,post_type,trail_title,post_content,trail_media,trail_tstamp)
-        values(uuid_generate_v4(),$1,$2,$3,$4,$5,$6,CURRENT_TIMESTAMP) RETURNING post_id`,     
-        values:[user.user_uid,req.body.city_id,req.body.trailType,req.body.postTitle,req.body.content,[]],
+        (post_id,user_uid,city_id,post_type,trail_title,post_content,trail_media,trail_tstamp,trail_location)
+        values(uuid_generate_v4(),$1,$2,$3,$4,$5,$6,CURRENT_TIMESTAMP,$7) RETURNING post_id`,     
+        values:[user.user_uid,req.body.city_id,req.body.trailType,req.body.postTitle,req.body.content,[],locationData],
     };
     let post_id;
     try{
