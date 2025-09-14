@@ -54,6 +54,7 @@ body {
 .profile-data {
     display: flex;
     flex-direction: row;
+    align-items:center;
     gap: 80px;
     padding: 44px 5vw 24px 5vw;
     font-size: 1.12rem;
@@ -75,7 +76,20 @@ body {
     font-size: 1.12rem;
     margin: 0;
 }
-
+.edit-profile-button{
+  height:40px;
+  width:120px;
+  display: inline-block;
+  border-radius: 14px;
+  background-color: #fff7ec;
+  color: #4a3000;
+  font-weight: 600;
+  text-decoration: none;
+  border: 2px solid #ff9800;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  user-select: none;
+}
 .container {
     display:flex;
     flex-direction:vertical;}

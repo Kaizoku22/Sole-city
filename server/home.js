@@ -74,8 +74,8 @@ router.get('/alerts',async(req,res)=>{
     if(!alerts || alerts.length === 0){
             res.render('alertsList',[]);
         }else{
-            let alertsWidgetList = alerts.map(alert => alertService.createAlertWidgetObject(alert));
-//            console.log('LOGGING alertsWidgetList in home : ',alertsWidgetList);
+            let alertsWidgetList =await Promise.all(alerts.map(async(alert) => { return await alertService.createAlertWidgetObject(alert)}));
+            console.log('LOGGING alertsWidgetList in home : ',alertsWidgetList);
             res.render('alertsList',{alerts:alertsWidgetList});
         }
 

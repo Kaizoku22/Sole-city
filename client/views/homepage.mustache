@@ -42,7 +42,7 @@
           }
         });
       });
-
+      
       document.addEventListener("DOMContentLoaded", (event) => {
         document.body.addEventListener('htmx:afterSwap', function(evt) {
             if(evt.target.classList.contains('chat-section') && evt.target.firstChild.classList.contains('chat-window')){
@@ -164,7 +164,8 @@
             hx-swap="innerHTML">
         </div>
         <div class="resources-section">
-            Saved Resources
+            <div>Resources
+            </div>
         </div>
     </div>
 </div>

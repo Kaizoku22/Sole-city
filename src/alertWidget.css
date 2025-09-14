@@ -13,7 +13,7 @@
 .AlertWidgetTitle {
     font-size: 1.1rem;
     font-weight: bold;
-    color: #e65100;                    /* Dark orange title */
+    color: #ff9800;
     margin-bottom: 6px;
 }
 
@@ -22,4 +22,7 @@
     font-size: 0.9rem;
     color: #555;                       /* Muted text */
 }
-
+.AlertWidgetCity{
+    font-size:0.9rem;
+    color:#555;
+}

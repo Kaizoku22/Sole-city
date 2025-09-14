@@ -1,4 +1,10 @@
+*{
+    font-family: 'Segoe UI', sans-serif;
+}
 
+body{
+margin:0px;
+}
 .map-container{
     position: fixed;
     display: flex;
@@ -44,30 +50,74 @@
 
 
 .page{
-display:flex;
+    display:flex;
+    padding:8px;
 }
 
 .trailwall{
-    height:800px;
+    height:40vw;
     width:60%;
     overflow:auto;
+    padding:8px;
 }
 
 /*
 HomePage left-sidebar chatsection*/
 .left-sidebar{
-    width:30%
+    width:30%;
+    margin-right: 20px;
+    border-radius: 8px;
+    padding: 18px;
 }
 .chat-section{
     display:flex;
     flex-direction: column;
+    height: 70vh;
+    padding:8px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
-.right-sidebar{
-    width:20%;
-    margin-left:20px;
+.right-sidebar {
+    width: 20%;
+    margin-left: 20px;
+    padding-right: 8px;
+    overflow-y: hidden; /* hide scrollbar by default */
+    transition: overflow-y 0.3s ease;
 }
+
+.right-sidebar:hover {
+    overflow-y: scroll; /* show scrollbar on hover */
+}
+
+/* WebKit scrollbar styling on hover */
+.right-sidebar:hover::-webkit-scrollbar {
+    width: 8px;
+}
+
+.right-sidebar:hover::-webkit-scrollbar-track {
+    background: #f6f7fb;
+    border-radius: 4px;
+}
+
+.right-sidebar:hover::-webkit-scrollbar-thumb {
+    background-color: #ff9800;
+    border-radius: 4px;
+    border: 2px solid #f6f7fb;
+}
+
+/* Firefox scrollbar styling */
+.right-sidebar {
+    scrollbar-width: none; /* hide scrollbar */
+}
+
+.right-sidebar:hover {
+    scrollbar-width: thin;
+    scrollbar-color: #ff9800 #f6f7fb;
+}
+
 .cities{
-   height:20%; 
+   min-height:20%;
+   margin-bottom: 8px;
 }
 
 .selectCity > div{
@@ -80,15 +130,45 @@ HomePage left-sidebar chatsection*/
     box-shadow: 0 1px 6px rgba(255, 165, 0, 0.05);
 
 }
-.selectCity > div > a{
-    text-decoration:none;
-    color: #ff9800;
+/* Hide default button appearance and make it blend in */
+.selectCity Button {
+  background: none;
+  border: none;
+  box-shadow: none;
+  padding: 8px 16px;
+  margin: 2px 0;
+  font-size: 1rem;
+  text-align: left;
+  width: 100%;
+  display: block;
+  cursor: pointer;
+  color: #555;
+  border-radius: 6px;
+  transition: background 0.2s, color 0.2s;
 }
 
+.selectCity div > Button > a{
+ text-decoration: none;
+ color:#555;
+ font-size: 1rem;
+}
+
+/* Change cursor and add subtle background on hover */
+.selectCity Button:hover {
+  background: #ffeccc;
+  color: #222;
+  cursor: pointer;
+}
+
+/* Remove focus outline for less button-like feel */
+.selectCity Button:focus {
+  outline: none;
+  background: #ffeeaa;
+}
 
 .alerts-section{
-    height:40%;
+    min-height:40%;
 }
 .resources-section{
-    height:40%;
+    min-height:40%;
 }

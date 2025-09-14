@@ -1,7 +1,10 @@
 
 {{#cities}} 
-    <div><a href="/city/{{city_name}}">{{city_name}}</a></div>
-{{/cities}} 
+    <div>
+        <Button>
+            <a href="/city/{{city_name}}">{{city_name}}</a>
+        </Button>
+   {{/cities}} 
 {{^cities}}
     <div>Not Joined any cities</div>
 {{/cities}}

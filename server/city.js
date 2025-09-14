@@ -8,7 +8,7 @@ const upload = multer({ storage: storage });
 const db = require('./database.js');
 const header = require('./header.js');
 const alertService = require('./alertService.js');
-
+const trailObject = require('./createTrailObject.js');
 
 
 router.get('/:city_name',async (req,res)=>{
@@ -18,7 +18,7 @@ router.get('/:city_name',async (req,res)=>{
     let trailTypes = fetchTrailTypeQuery.rows;
     console.log(trailTypes);
     let fetchCityRow = await db.query(`SELECT * FROM ${db.citiesTable} WHERE city_name = '${req.params.city_name}'`);
-//    console.log(fetchCityRow.rows[0]);
+    console.log(fetchCityRow.rows[0]);
     let fetchedTrails;
     try{
         let user = await db.fetchUserData(req.cookies.session);
@@ -37,37 +37,15 @@ router.get('/:city_name',async (req,res)=>{
         }       
         let trailObjectList = await Promise.all(
             fetchedTrails.map(async (trail)=>{
-            let userName;
-            let completeTrailObject;
-            try{
-                let fetchUserName = await db.query(`SELECT user_display_name from ${db.usersTable} WHERE user_uid = $1`,[trail.user_uid]); 
-                userName= fetchUserName.rows[0].user_display_name;
-//              console.log(fetchUserName);
-                }catch(error){
-                    console.log('ERROR fetching userName in fetch trails :',error);
-                }
-            completeTrailObject=
-                {   
-                post_id:trail.post_id,
-                user_uid:trail.user_uid,
-                user_name:userName,
-                city_id:trail.city_id,
-                post_type:trail.post_type,
-                trail_title:trail.trail_title,
-                post_content:trail.post_content,
-                trail_media:trail.trail_media,
-                trail_tstamp:trail.trail_tstamp
-                
-                }
-            return completeTrailObject;
+                return trailObject.createTrailObject(trail);
             })
         );
 //    console.log(trailObjectList);
 
 //creating alertsList to show on alertWidgets 
-    alertWidgetsList = trailObjectList
+    alertWidgetsList = await Promise.all(trailObjectList
         .filter(trail => trail.post_type=="Alert")
-        .map(trail => alertService.createAlertWidgetObject(trail));
+        .map(async (trail) =>{ return alertService.createAlertWidgetObject(trail)}));
     
 //    console.log('LOGGING alertWidgetList :',alertWidgetsList);
 
@@ -94,6 +72,18 @@ router.get('/:city_name',async (req,res)=>{
 
 });
 
+router.get('/:city_name/createTrail',async(req,res)=>{
+//    console.log(req.params.city_name);
+    let fetchCityRow = await db.query(`SELECT * FROM ${db.citiesTable} WHERE city_name = '${req.params.city_name}'`);
+//    console.log(fetchCityRow.rows[0]);
+    let fetchTrailTypeQuery = await db.query(`SELECT * from ${db.trailType}`);
+    let trailTypes = fetchTrailTypeQuery.rows;
+//    console.log(trailTypes);
+    res.render('createTrailForm',{
+        city:fetchCityRow.rows[0],
+        trailTypes:trailTypes,
+    });
+});
 
 router.post('/:city_name',async (req,res) =>{
 
@@ -110,11 +100,13 @@ router.post('/:city_name',async (req,res) =>{
 
 });
 
+/*
 router.get('/:city_name/trails',async(req,res)=>{  
     res.render('createTrail',{
         city_name : req.params.city_name,
     });
 });
+*/
 
 //create Trail : 
 router.post('/:city_name/trails',upload.array('trailImages',10),async (req,res) =>{

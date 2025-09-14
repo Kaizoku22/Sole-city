@@ -1,0 +1,177 @@
+.create-trail-form {
+    max-width: 520px;
+    margin: 36px auto;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 4px 18px rgba(255,156,64, 0.13);
+    padding: 28px 34px 24px 34px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: #30240f;
+}
+
+.create-trail-form a {
+    align-self: flex-end;
+    color: #ff7e33;
+    font-weight: 600;
+    font-size: 1em;
+    text-decoration: none;
+    border-radius: 8px;
+    padding: 6px 18px;
+    background: #ffe9d0;
+    transition: background 0.12s, color 0.12s;
+    margin-bottom: 12px;
+}
+
+.create-trail-form a:hover {
+    background: #ff7e33;
+    color: #fff;
+}
+
+.create-trail-form input{
+    margin:8px;
+}
+
+.create-trail-form input[type="text"],
+.create-trail-form select {
+    margin:8px;
+    width: 100%;
+    padding: 10px 14px;
+    margin-bottom: 8px;
+    border: 1px solid #ffc480;
+    border-radius: 10px;
+    outline: none;
+    background: #fffaf4;
+    color: #30240f;
+    transition: border-color 0.14s;
+}
+
+.create-trail-form input[type="text"]:focus,
+.create-trail-form select:focus {
+    border-color: #ff7e33;
+    background: #fff6e6;
+}
+
+.create-trail-form select {
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.create-trail-form input[type="file"] {
+    margin: 10px 0 16px 0;
+    background: #fffaf4;
+    border: none;
+    font-size: 1em;
+    color: #ff7e33;
+}
+
+.create-trail-form input[type="button"].add-map-marker {
+    background: linear-gradient(90deg, #ff922b 10%, #ffc480 90%);
+    color: #fff;
+    border: none;
+    border-radius: 14px;
+    font-size: 1.05em;
+    font-weight: 600;
+    padding: 10px 28px;
+    margin-top: 8px;
+    margin-bottom: 4px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(255,120,78,0.09);
+    transition: background 0.13s, box-shadow 0.13s, transform 0.12s;
+}
+
+.create-trail-form input[type="button"].add-map-marker:hover {
+    background: linear-gradient(70deg, #ff7e33 40%, #ff922b 100%);
+    box-shadow: 0 4px 18px rgba(255,120,78,0.14);
+    transform: scale(1.04);
+}
+
+/* Custom multi-line textbox styling */
+.create-trail-form .trail-content,
+.create-trail-form input[type="textbox"] {
+    min-height: 200px;
+    max-height: 724px;
+    resize: vertical;
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #ffc480;
+    border-radius: 10px;
+    outline: none;
+    font-size: 1.06em;
+    background: #fffaf4;
+    color: #30240f;
+    margin: 10px 0 16px 0;
+    box-sizing: border-box;
+    transition: border-color 0.14s;
+}
+
+.create-trail-form .trail-content:focus {
+    border-color: #ff7e33;
+    background: #fff6e6;
+}
+
+.create-trail-form input[type="submit"] {
+    background: #ff7e33;
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.15em;
+    border: none;
+    border-radius: 16px;
+    padding: 12px 0;
+    margin-top: 10px;
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(255,120,78,0.11);
+    transition: background 0.13s, box-shadow 0.13s, transform 0.12s;
+    width: 100%;
+}
+
+.create-trail-form input[type="submit"]:hover {
+    background: #ff922b;
+    box-shadow: 0 6px 20px rgba(255,120,78,0.16);
+    transform: scale(1.04);
+}
+
+/* Optional: add spacing between inputs */
+.create-trail-form input, .create-trail-form select {
+    margin-bottom: 10px;
+}
+
+#trail-images{
+    background: #ffdcb4;
+    border-radius: 14px;
+    width: 100%;
+    font-size: 1.05em;
+    font-weight: 600;
+    padding: 10px 28px;
+    margin-top: 8px;
+    margin-bottom: 4px;
+    cursor: pointer;
+}
+
+#trail-images::file-selector-button{
+    display: none;   
+}
+
+
+#trail-location{
+}
+.head-section {
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: 700;
+    color: #ff7e33;
+    letter-spacing: 1px;
+    margin-bottom: 18px;
+    margin-top: 2px;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+.header-div{
+    display:flex;
+    justify-content: space-between;
+}
+.add-location-section{
+    display:flex;
+    width:100%;
+}

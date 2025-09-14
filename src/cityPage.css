@@ -1,3 +1,165 @@
+.city-page-content {
+    padding-left: 18px;
+    padding-right: 18px;
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: #3c2c1a;
+}
+
+.city-page-hero-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 170px;
+    background: linear-gradient(90deg, #ffa94d 0%, #ff784e 100%);
+    border-radius: 18px;
+    padding: 0 36px;
+    margin-top: 18px;
+    margin-bottom: 18px;
+    box-shadow: 0 4px 14px rgba(255, 156, 64, 0.13);
+}
+.city-page-hero-section h1 {
+    font-size: 2.6em;
+    font-weight: 700;
+    color: #3c2c1a;
+    margin-right: 40px;
+    letter-spacing: 2px;
+    text-shadow: 0 1px 2px #fffbe8;
+}
+
+.right-side {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.joinButton button,
+.create-trail button {
+    background: linear-gradient(90deg, #ffb847 0%, #ff784e 100%);
+    color: #555;
+    font-weight: 600;
+    font-size: 1.1em;
+    border: none;
+    border-radius: 20px;
+    padding: 12px 32px;
+    margin-right: 8px;
+    cursor: pointer;
+    transition: box-shadow 0.15s, transform 0.15s;
+    box-shadow: 0 2px 7px rgba(255,184,71,0.10);
+}
+.joinButton button:hover,
+.create-trail button:hover {
+    background: linear-gradient(90deg, #ff784e 10%, #ffb847 90%);
+    color: #fff8e6;
+    transform: scale(1.06);
+    box-shadow: 0 3px 16px rgba(255,120,78,0.18);
+}
+
+.joinButton {
+    margin-right: 12px;
+    min-width: 88px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+
+/* Show pill-like style for the joined state */
+.joinButton {
+    background: #ffdcb4;
+    color: #a75c1a;
+    border-radius: 18px;
+    padding: 8px 18px;
+    font-weight: 600;
+    font-size: 1em;
+}
+
+/* When 'joined' is not a button, style like a badge */
+.joinButton:not(:has(button)) {
+    background: #ffdcb4;
+    color: #a75c1a;
+    border-radius: 18px;
+    padding: 8px 18px;
+    font-weight: 600;
+    font-size: 1em;
+    border: 1px solid #ffb847;
+}
+
+
 .container{
     display:flex;
+}
+
+/* Left bar styles */
+.left-bar {
+    width: 25%;
+    padding: 44px 30px 40px 44px;
+    background-color: #fff7ec;
+    border-radius: 20px;
+    box-shadow: 0 2px 10px rgba(255,184,71,0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+/* About city section */
+.about-city {
+    background: #ffefdb;
+    padding: 18px;
+    border-radius: 12px;
+    line-height: 1.5;
+}
+
+/* City resources links styling */
+.city-resources {
+    margin-top: 28px;
+}
+
+.links-list {
+    background: #fde2c3;
+    border-radius: 18px;
+    padding: 14px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-weight: 500;
+    color: #3c2c1a;
+}
+
+.links-list a {
+    background: #e6ad6c;
+    color: #3c2c1a;
+    text-decoration: none;
+    border-radius: 10px;
+    padding: 8px 16px;
+    margin: 2px 0;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(255,156,64,0.08);
+    transition: background 0.12s, color 0.12s;
+    border: 0;
+    outline: none;
+    display: inline-block;
+}
+
+.links-list a:hover {
+    background: #ffb847;
+    color: #662d01;
+    box-shadow: 0 4px 14px rgba(255,120,78,0.11);
+}
+
+.center-section{
+   width:55%; 
+   padding:8px;
+}
+.right-section {
+    width: 20%;
+    margin: 8px 0 8px 8px;
+    padding: 20px 14px;
+    border-radius: 20px;
+}
+
+.trailwall{
+    height:800px;
+    width:100%;
+    min-width: 750px;
+    overflow:auto;
+    margin:8px;
 }

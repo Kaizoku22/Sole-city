@@ -4,6 +4,103 @@
             output.src = URL.createObjectURL(event.target.files[0]);
         }
 </script>
+<style>
+/* Refined input styling matching white and orange theme */
+.profileForm input[type="text"],
+.profileForm input[type="file"] {
+  background: #fff;
+  border: 2px solid #ff9800;
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 1rem;
+  color: #333;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  box-sizing: border-box;
+  outline: none;
+  width: 100%;
+  max-width: 400px;
+}
+
+.profileForm input[type="text"]:focus {
+  border-color: #f57c00;
+  box-shadow: 0 0 6px #ff9800aa;
+}
+
+.profileForm input[disabled] {
+  background: #fff6e8;
+  border-color: #ffb74d;
+  color: #bb6600;
+  cursor: not-allowed;
+  opacity: 1; /* keep visible */
+}
+
+.profileForm input[type="file"] {
+  padding: 6px 10px;
+}
+#email-section{
+    display:flex;
+    flex-direction:column;
+    padding-top:38px;
+}
+
+#email-section p{
+    margin:0px;
+}
+
+/* Rounded buttons for Update and Cancel */
+.profile-data button[type="submit"]{
+  height:40px;
+  width:120px;
+  display: inline-block;
+  border-radius: 14px;
+  background-color: white;
+  color: #4a3000;
+  font-weight: 600;
+  text-decoration: none;
+  border: 2px solid #ff9800;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  user-select: none;
+}
+.profile-data a{
+  height:40px;
+  width:120px;
+  border:2px solid #ff9800;
+  border-radius: 14px;
+  text-decoration:none;
+  color: #4a3000;
+  font-weight: 600;
+
+}
+
+.profile-data > a > p{
+  margin-top:8px;
+  margin-left:24px;
+}
+.profile-data button[type="submit"]:hover,
+.profile-data a:hover {
+  background-color: #ffa726;
+  color: #331f00;
+}
+
+
+
+/* Small red background messages for "cannot change" notes */
+.profile-displayName > p,
+#email-section> p {
+  display: inline-block;
+  margin: 4px;
+  font-size: 0.85rem;
+  background-color: #ffcccc;
+  color: #b00000;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-weight: 600;
+  user-select: none;
+}
+
+
+</style>
 <div class="profileForm">
 <form 
     hx-put="/user/profile/update"
@@ -29,15 +126,15 @@
             />
         </div>
         <div class="profile-displayName">
-            <h1><input type="text" value="{{user.user_display_name}}" disabled></input></h1> Can not change Username
+            <h1><input type="text" value="{{user.user_display_name}}" disabled></input></h1> <p>Can not change Username</p>
         </div>
     </div>
     <div class="profile-data">
         <div><label>First Name: </label> <input type="text" name="first_name" value="{{user.user_first_name}}"></div>
         <div><label>Last Name: </label> <input type="text" name="last_name" value="{{user.user_last_name}}"></div> 
-        <div><label>Email: </label> <input type="text" name="email" value="{{user.user_email}}" disabled> <p>Can not change Email</p></div>
+        <div><label>Email: </label><div id="email-section"><input type="text" name="email" value="{{user.user_email}}" disabled> <p>Can not change Email</p></div></div>
         <button type="submit">Update Profile</button>
-        <a href="/user/profile"> cancle </a>
+        <a href="/user/profile"> <p>cancle</p></a>
    </div>
     </form>
 </div>

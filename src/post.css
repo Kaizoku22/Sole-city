@@ -12,25 +12,59 @@
 /* Header Styling */
 .post-header {
     border-bottom: 1px solid #ececec;
-    margin-bottom: 12px;
+    margin-bottom: 4px;
     padding-bottom: 8px;
 }
 
+.post-header > h2{
+    margin-top: 0px;
+    margin-left:4px;
+}
 .post-title {
     margin: 0;
     font-size: 1.8rem;
     color: #2c3e50;
 }
+#subheader{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.author-profile{
+    display:flex;
+    align-items: center;
+}
 
-.post-author {
+.author-profile img {
+    width: 40px;
+    height: 40px;
+    margin:4px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #ff9800;
+    background: #ffeccc;
+    box-shadow: 0 2px 24px rgba(255,165,0,0.10);
+}
+
+.post-author{
+    display: flex;
+    flex-direction: column;
+}
+.post-author a {
     margin: 0;
     font-size: 0.9rem;
-    color: #7f8c8d;
-}
-.post-author span {
-    font-weight: 600;
+    color: #ff9800;
+    text-decoration:underline;
 }
 
+.city-link{
+    color:#ff9800;
+    font-size: 0.9rem;
+}
+.post-type{
+    color:#ff9800;
+
+}
 /* Content Styling */
 .post-content p {
     font-size: 1.1rem;

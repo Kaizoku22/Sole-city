@@ -1,0 +1,31 @@
+<link rel="stylesheet" href="/createTrailForm.css">
+<div class="create-trail-form"> 
+        <div class="header-div">
+            <div class="head-section">Create Trail</div>
+            <div class="spacer">
+            </div>
+            <a href="/city/{{city.city_name}}">
+                Cancle
+            </a>
+        </div>
+        <form method="POST" action="/city/{{city.city_name}}/trails" enctype="multipart/form-data" >
+        <input type ="hidden" name="city_id" value="{{city.city_id}}" 
+        <label>Title</label>
+        <input type="text" name="postTitle">
+        <lable>Trail Type :</label>
+        <select name="trailType" id="trail-type-dropdown" placeholder="Select Type">
+            {{#trailTypes}}
+                    <option value={{type}}>{{type}}</option>       
+            {{/trailTypes}}
+        </select>
+        <label>Content</label>
+        <textarea class="trail-content"name="content"></textarea>
+        <label>Add Images</label>
+        <input type="file" id="trail-images" name="trailImages" multiple placeholder="Add Images">
+        <div class="add-location-section">
+            <input type="text" id="trail-location" name="trailLocation">
+            <input type="button" class="add-map-marker" value="Add Location" onClick="onAddLocationClicked()">
+        </div>
+        <input type="submit">
+        </form>
+    </div>

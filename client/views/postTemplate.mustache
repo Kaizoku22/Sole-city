@@ -1,7 +1,16 @@
 <div class="post" data-post_id = {{post_id}}>
     <div class="post-header">
+        <div id="subheader"> 
+            <div class="author-profile">
+                <img src="{{user_profile_pic}}">
+                <h6 class="post-author">Author:<a href="/user/{{user_name}}/profile">{{user_name}}</a></h6>
+            </div>
+            <div class="spacer"></div>
+            <div id="city-profile">
+                <h6><a href="/city/{{city_name}}" class="city-link">{{city_name}}</a></h6>
+            </div>
+        </div>
         <h2>{{trail_title}}</h2>
-        <h6>Author:<a href="/user/{{user_name}}/profile">{{user_name}}</a></h6>
         <div class="post-type"><h6>{{post_type}}</h6></div>
     </div>
     <div class="post-content">

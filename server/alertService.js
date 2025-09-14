@@ -1,12 +1,24 @@
 const db = require('./database.js');
 const trailObject = require('./createTrailObject.js');
-function createAlertWidgetObject(trailObject){
+async function createAlertWidgetObject(trailObject){
+    let fetchCityNameResult;
+    let alert_city;
+    let fetchCityNameQuery = `SELECT city_name from ${db.citiesTable} WHERE city_id = $1`;
+    try{
+        fetchCityNameResult = await db.query(fetchCityNameQuery,[trailObject.city_id]);
+        console.log('LOGGING fecthed City Result in alertWidgetObject: ',fetchCityNameResult.rows[0].city_name);
+        alert_city = fetchCityNameResult.rows[0].city_name;
+    }catch(error){
+        console.log('ERROR fetching city_name in createAlertWidgetObject: ',error);
+    } 
     let alertWidgetObject;
         alertWidgetObject = {
             trail_id : trailObject.post_id,
             alert_title : trailObject.trail_title,
-            alert_author : trailObject.user_name
+            alert_author : trailObject.user_name,
+            alert_city:alert_city,
         }
+    console.log('LOGGING alertWidgetObject:',alertWidgetObject);
     return alertWidgetObject;
 }
 
