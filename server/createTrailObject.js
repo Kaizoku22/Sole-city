@@ -4,6 +4,7 @@ async function createTrailObject(trail){
             let profilepic;
             let cityName;
             let completeTrailObject;
+            let trailLocationString;
             try{
                 let fetchUserName = await db.query(`SELECT user_display_name,profile_picture from ${db.usersTable} WHERE user_uid = $1`,[trail.user_uid]); 
                 userName= fetchUserName.rows[0].user_display_name;
@@ -12,6 +13,8 @@ async function createTrailObject(trail){
 //              console.log(fetchUserName);
                 let fetchCityName = await db.query(`SELECT city_name from ${db.citiesTable} WHERE city_id = $1`,[trail.city_id]);
                 cityName = fetchCityName.rows[0].city_name;
+//                console.log('LOGGING location object in createTrailLocation: ',JSON.stringify(trail.trail_location));
+                trailLocationString = JSON.stringify(trail.trail_location);
                 }catch(error){
                     console.log('ERROR fetching userName in fetch trails :',error);
                 }
@@ -27,8 +30,8 @@ async function createTrailObject(trail){
                 trail_title:trail.trail_title,
                 post_content:trail.post_content,
                 trail_media:trail.trail_media,
-                trail_tstamp:trail.trail_tstamp
-                
+                trail_tstamp:trail.trail_tstamp,
+                trail_location:trailLocationString,
                 }
             return completeTrailObject;
     }

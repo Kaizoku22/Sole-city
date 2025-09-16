@@ -1,3 +1,4 @@
+
 <div class="post" data-post_id = {{post_id}}>
     <div class="post-header">
         <div id="subheader"> 
@@ -25,5 +26,13 @@
 
             </div>
         {{/trail_media.length}}
+    </div>
+    <div class="post-controls">
+        <button 
+            class="displayOnMapButton"
+            data-geojson='{{{trail_location}}}'> 
+            Show on Map
+        </button>
+         
     </div>
 </div>
