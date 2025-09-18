@@ -15,8 +15,8 @@
 
     <script src='https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.js'></script>
     <link href='https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.css' rel='stylesheet' />
+    
     <script>
-
 
     //initialising socket
       window.socket = io();
@@ -24,15 +24,8 @@
       socket.on('connect', () => {
         console.log('Connected with id:', socket.id);
       });
-
-      socket.on('your-server-event', (data) => {
-        // Handle incoming messages, update DOM manually or trigger HTMX swaps
-      });
-
-      // send messages as needed
-      socket.emit('your-client-event', { /* data */});
         
-        //handling status codes
+    //handling status codes
       document.addEventListener("DOMContentLoaded", (event) => {
         document.body.addEventListener('htmx:beforeSwap', function(evt) {
           if (evt.detail.xhr.status === 422) {
@@ -45,10 +38,21 @@
           }
         });
       });
-      
+   
+   //joining chatChannel and chatFunctionality
       document.addEventListener("DOMContentLoaded", (event) => {
         document.body.addEventListener('htmx:afterSwap', function(evt) {
-            if(evt.target.classList.contains('chat-section') && evt.target.firstChild.classList.contains('chat-window')){
+//            console.log('logging afterswap event element :',evt.detail.elt.firstChild.classList);
+
+            const element = evt.detail.elt;
+//            console.log('LOGGING element: ',element);
+            if(!element || !element.firstChild||!element.firstChild.classList){
+                //console.log('no element or firstChild found');
+                return;
+                }
+            const elementClassList = element.firstChild.classList;
+ //           console.log('LOGGING element classlist: ',elementClassList);
+            if(evt.detail.target.classList.contains('chat-section') && elementClassList.contains('chat-window')){
                 const chatRoomID = document.querySelector('.chat-window').dataset.chatroomid;
                 console.log('joined chatRoom : ',chatRoomID);
                 socket.emit('joinRoom',chatRoomID)
@@ -79,7 +83,7 @@
                         socket.emit('sendMessage',{chat_room_id:chatRoomID,chat_message:message,senderID:senderID});
                         messageInput.value="";
                     })
-
+                socket.off('receiveMessage');
                 socket.on('receiveMessage',(obj)=>{
                         displayMessage(obj);
                     })
@@ -87,7 +91,15 @@
                 }
         });
       });
+
+//leave chat room on back Click 
+function leaveChatRoom(chat_room_id){
+    console.log('LOGGING chat_room_id in leaveChatRoom: ',chat_room_id);
+    socket.emit('leaveRoom',chat_room_id);
+    }
+
 // handling the reapplication of handleFormSubmit script after swaps
+    document.addEventListener('DOMContentLoaded',(event)=>{
         document.body.addEventListener('htmx:afterSwap', function(evt) {
           // Check if the swapped area contains your form
           const chatInputForm = document.getElementById('chatForm');
@@ -105,6 +117,7 @@
             });
           }
         });
+    });
     </script> 
 
 </head>

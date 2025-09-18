@@ -2,6 +2,7 @@
 
     <div class="title section">
        <button class="back-button" 
+            onclick="leaveChatRoom('{{chatRoom.chat_room_id}}')"
             hx-get="/chat"
             hx-swap="innerHTML"
             hx-target=".chat-section">

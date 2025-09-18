@@ -30,7 +30,11 @@ io.on('connection',socket =>{
         console.log('trying to join chatRoomID : ',chatRoomID);
         socket.join(chatRoomID);
     });
-
+    socket.on('leaveRoom',(chatRoomID) => {
+        console.log('Leaving the Room :  ',chatRoomID);
+        socket.leave(chatRoomID);
+        console.log('left the room : ',chatRoomID);
+    });
     socket.on('disconnect',() => {
     console.log('user disconnected') 
     })
