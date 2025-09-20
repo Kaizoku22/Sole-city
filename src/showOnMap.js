@@ -2,7 +2,7 @@ function attachShowOnMapListeners(scope=document){
     let showonmapbuttons = document.querySelectorAll(".displayOnMapButton");
 //    console.log('LOGGING buttons array: ',showonmapbuttons);
     Array.from(showonmapbuttons).forEach((button) => {
-        console.log(button);
+//        console.log(button);
         if(!button.dataset.listenerAttached){
             button.addEventListener('click',function(){
                 displayOnMap(button.dataset.geojson);
@@ -36,7 +36,7 @@ function attachShowOnMapListeners(scope=document){
                 'circle-color':'#ff9800'
             }
         });
-        onClickMapDrawer();
+        onClickMapDrawer(true);
         map.flyTo({
             center:[lang,lat],
             essential:true,
@@ -54,7 +54,7 @@ document.addEventListener('htmx:afterSwap',function(evt){
     const requestPath = evt.detail.requestConfig.path;
 //    console.log('LOGGING path in afterSwap:',requestPath);
     if(requestPath === '/trailwall'){
-        console.log('LOGGING HTMX afterSwap detail.xhr',evt.detail.requestConfig.path);
+//        console.log('LOGGING HTMX afterSwap detail.xhr',evt.detail.requestConfig.path);
         attachShowOnMapListeners();
     }
 
