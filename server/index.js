@@ -7,6 +7,7 @@ const db = require('./database.js');
 const path = require('path');
 const http = require('http');
 const {Server} = require('socket.io');
+const {saveMessage} = require('./chat.js');
 
 require("dotenv").config();
 
@@ -24,6 +25,7 @@ io.on('connection',socket =>{
     socket.on('sendMessage',(obj)=>{
         console.log('user send message:',obj);
         socket.to(obj.chat_room_id).emit('receiveMessage',obj);
+        saveMessage(obj);
     });
 
     socket.on('joinRoom',(chatRoomID)=>{
@@ -54,7 +56,7 @@ const login = require('./login.js');
 const registerUser = require('./registerUser.js');
 const cityPage = require('./city.js');
 const user = require('./user.js');
-const chat = require('./chat.js');
+const {router:chat} = require('./chat.js');
 
 
 async function main(){

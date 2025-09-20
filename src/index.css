@@ -10,6 +10,8 @@ margin:0px;
     display: flex;
     align-items: center;
     height: 100vh;
+    z-index: 9999;
+
 }
 
 /*

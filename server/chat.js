@@ -129,4 +129,19 @@ async function checkIfChatExists(user,chatWithID){
     }
     return false;
 }
-module.exports=router;
+
+async function saveMessage(message){
+//    console.log('LOGGING Message object sent to saveMessage:',message);
+    const saveMessasgeQuery = `INSERT INTO ${db.messagesTable} 
+                               (message_id,chat_room_id,sender_id,sent_at,message_content)
+                               values(uuid_generate_v4(),$1,$2,CURRENT_TIMESTAMP,$3)`
+    try{
+        const result = await db.query(saveMessasgeQuery,[message.chat_room_id,message.senderID,message.chat_message]);
+//        console.log('LOGGING result object in saveMessage',result);
+    }catch(error){
+//        console.log('ERROR saving message to DB in saveMessage: ',error);
+    }
+}
+
+
+module.exports={router,saveMessage};
