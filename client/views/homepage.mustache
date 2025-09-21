@@ -62,6 +62,12 @@
                 const senderID = document.querySelector('.chat-window').dataset.senderid;
                 console.log(senderID);
 
+                function scrollToBottom(){
+                    const messageDisplaysection = document.querySelector('.chat-messages-display-section');
+                    messageDisplaysection.scrollTop = messageDisplaysection.scrollHeight;
+                }
+                scrollToBottom();
+
                 function displayMessage(obj){
                         const displaySection = document.getElementById('chat-messages-display-section');
                         const div = document.createElement('div');
@@ -72,7 +78,7 @@
                         }
                         else{ div.classList.add('received');}
                         displaySection.append(div);
-
+                        scrollToBottom();
                     };
 
                 chatInputForm.addEventListener('submit',(event) => { 

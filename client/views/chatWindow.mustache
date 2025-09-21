@@ -14,6 +14,12 @@
        </div>
     </div>
     <div class="chat-messages-display-section" id="chat-messages-display-section">
+        {{#chatRoomMessages}}
+            <div class="{{divClass}}">
+                {{message_content}}
+            </div>
+        {{/chatRoomMessages}}
+        <div class="bottomAnchor"></div>
     </div>
     <div class="chat-room-input-section">
         <form method="post" id="chatForm">

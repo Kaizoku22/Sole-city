@@ -1,6 +1,8 @@
 const db = require('./database.js');
 const chatRoomObject = require('./createChatRoomWidgetObject.js');
 const router = require('express').Router();
+const messageObject = require('./chatMessageObject.js');
+
 
 router.get('/',async (req,res)=>{
     const user = await db.fetchUserData(req.cookies.session);
@@ -61,15 +63,21 @@ router.post('/',async (req,res)=>{
 router.get('/:chat_room_id',async(req,res)=>{
     let user = await db.fetchUserData(req.cookies.session);
     let chatRoom;
+    let chatMessages;
     try{
         let response = await db.query(`SELECT * FROM ${db.chatroomTable} WHERE chat_room_id = $1`,[req.params.chat_room_id]);
         chatRoom = await chatRoomObject.createObject(user.user_uid,response.rows[0]);
-        console.log('LOGGING chatRoom object: ',chatRoom)
+        console.log('LOGGING chatRoom object: ',chatRoom);
+        let getMessagesResponse = await db.query(`SELECT * FROM ${db.messagesTable} WHERE chat_room_id = $1`,[req.params.chat_room_id]);
+        chatMessages = getMessagesResponse.rows;
+        console.log('LOGGING messages from chatRoom : ',chatMessages);
+        const modifiedChatMessages = Promise.all(chatMessages.map((obj)=>{return messageObject.createMessageObject(obj,user.user_uid)}));
+        console.log('LOGGING messages after modification: ',modifiedChatMessages);
     }catch(error){
         console.log('ERROR fetching chat room',error);
     }
 
-    res.render('chatWindow',{chatRoom:chatRoom,senderID:user.user_uid});
+    res.render('chatWindow',{chatRoom:chatRoom,senderID:user.user_uid,chatRoomMessages:chatMessages});
 });
 
 async function createChatRoom(members,isGroupChat,chatRoomName,chatRoomProfile){
